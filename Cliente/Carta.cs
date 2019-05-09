@@ -8,7 +8,8 @@ namespace Cliente
 {
     class Carta
     {
-        string Leyenda {
+        string Leyenda
+        {
             get { return Leyenda; }
             set { Leyenda = value; }
         }
