@@ -9,7 +9,8 @@ namespace Cliente
     class Jugador
     {
 
-        string NombreUsuario {
+        string NombreUsuario
+        {
             get { return NombreUsuario; }
             set { NombreUsuario = value; }
         }
@@ -47,12 +48,6 @@ namespace Cliente
         // Constructor que no toma argumentos:
         public Jugador()
         {
-            NombreUsuario = "";
-            Password = "";
-            NumJugador = 0;
-            CantFichas = 0;
-            ApuestaActual = 0;
-            Activo = false;
         }
 
         // Constructor que toma argumentos:

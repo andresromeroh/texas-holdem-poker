@@ -29,8 +29,6 @@ namespace Cliente
         // Constructor que no toma argumentos:
         public Carta()
         {
-            Leyenda = "";
-            TipoPalo = 0;
         }
 
         // Constructor que toma argumentos:
