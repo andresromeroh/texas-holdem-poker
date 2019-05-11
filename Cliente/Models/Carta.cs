@@ -20,10 +20,10 @@ namespace Cliente
             set { TipoPalo = value; }
         }
 
-        public static int ESPADAS = 1;
-        public static int CORAZONES = 2;
-        public static int DIAMANTES = 3;
-        public static int TREBOLES = 14;
+        public static int ESPADAS = 0;
+        public static int CORAZONES = 1;
+        public static int DIAMANTES = 2;
+        public static int TREBOLES = 3;
 
 
         // Constructor que no toma argumentos:
@@ -36,6 +36,13 @@ namespace Cliente
         {
             Leyenda = leyanda;
             TipoPalo = tipoPalo;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Carta carta &&
+                   Leyenda == carta.Leyenda &&
+                   TipoPalo == carta.TipoPalo;
         }
 
     }

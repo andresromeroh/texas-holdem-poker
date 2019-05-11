@@ -1,14 +1,25 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
 
 namespace Cliente
 {
-    class Casa
+    class ViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         Stack Mazo
         {
             get { return Mazo; }
@@ -21,22 +32,10 @@ namespace Cliente
             set { Mesa = value; }
         }
 
-        int JugadorDealer
+        ArrayList Participantes
         {
-            get { return JugadorDealer; }
-            set { JugadorDealer = value; }
-        }
-
-        int JugadorAlta
-        {
-            get { return JugadorAlta; }
-            set { JugadorAlta = value; }
-        }
-
-        int JugadorMinima
-        {
-            get { return JugadorMinima; }
-            set { JugadorMinima = value; }
+            get { return Participantes; }
+            set { Participantes = value; }
         }
 
         int ApuestaAlta
@@ -56,24 +55,22 @@ namespace Cliente
             get { return ApuestaTotal; }
             set { ApuestaTotal = value; }
         }
+        
 
-        public Casa()
+        public ViewModel()
         {
         }
 
-        public Casa(Stack mazo, ArrayList mesa, int jugadorDealer, int jugadorAlta, int jugadorMinima, int apuestaAlta, int apuestaMinima, int apuestaTotal)
+        public ViewModel(Stack mazo, ArrayList mesa, ArrayList participantes, int apuestaAlta, int apuestaMinima, int apuestaTotal)
         {
             Mazo = mazo;
             Mesa = mesa;
-            JugadorDealer = jugadorDealer;
-            JugadorAlta = jugadorAlta;
-            JugadorMinima = jugadorMinima;
+            Participantes = participantes;
             ApuestaAlta = apuestaAlta;
             ApuestaMinima = apuestaMinima;
             ApuestaTotal = apuestaTotal;
         }
 
-        
 
     }
 }

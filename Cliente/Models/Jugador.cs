@@ -39,11 +39,24 @@ namespace Cliente
             set { ApuestaActual = value; }
         }
 
+        int role
+        {
+            get { return role; }
+            set { role = value; }
+        }
+
         bool Activo
         {
             get { return Activo; }
             set { Activo = value; }
         }
+
+        // Tipos de roles:
+        public static int REGULAR = 0;
+        public static int DEALER = 1;
+        public static int APUESTA_ALTA = 2;
+        public static int APUESTA_BAJA = 3;
+
 
         // Constructor que no toma argumentos:
         public Jugador()
@@ -61,5 +74,16 @@ namespace Cliente
             Activo = activo;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Jugador jugador &&
+                   NombreUsuario == jugador.NombreUsuario &&
+                   Password == jugador.Password &&
+                   NumJugador == jugador.NumJugador &&
+                   CantFichas == jugador.CantFichas &&
+                   ApuestaActual == jugador.ApuestaActual &&
+                   role == jugador.role &&
+                   Activo == jugador.Activo;
+        }
     }
 }

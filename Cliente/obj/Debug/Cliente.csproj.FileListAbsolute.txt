@@ -11,7 +11,7 @@ C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.cs
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csproj.CoreCompileInputs.cache
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.exe
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.pdb
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Login.g.cs
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Login.baml
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Juego.g.cs
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Juego.baml
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Login.g.cs
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Mesa.g.cs
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Login.baml
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Mesa.baml
