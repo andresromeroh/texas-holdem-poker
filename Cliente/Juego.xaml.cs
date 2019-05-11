@@ -25,11 +25,6 @@ namespace Cliente
             InitializeComponent();
         }
 
-        private void Button_Copy1_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

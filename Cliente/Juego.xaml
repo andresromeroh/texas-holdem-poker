@@ -15,22 +15,22 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="270" Margin="1083,198,0,0" VerticalAlignment="Top" Width="193"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="939,620,0,0" VerticalAlignment="Top" Width="137"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="772,620,0,0" VerticalAlignment="Top" Width="137"/>
-        <Button x:Name="button" Content="Call" HorizontalAlignment="Left" Height="38" Margin="1124,651,0,0" VerticalAlignment="Top" Width="192"/>
-        <Button x:Name="button_Copy" Content="Fold" HorizontalAlignment="Left" Height="38" Margin="1124,694,0,0" VerticalAlignment="Top" Width="192"/>
-        <Button x:Name="button_Copy1" Content="Raise" HorizontalAlignment="Left" Height="38" Margin="1124,737,0,0" VerticalAlignment="Top" Width="192" Click="Button_Copy1_Click"/>
-        <Button x:Name="button_Copy2" Content="Check" HorizontalAlignment="Left" Height="38" Margin="1124,780,0,0" VerticalAlignment="Top" Width="192"/>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="270" Margin="85,198,0,0" VerticalAlignment="Top" Width="193"/>
-        <Image x:Name="image2" HorizontalAlignment="Left" Height="270" Margin="337,198,0,0" VerticalAlignment="Top" Width="193"/>
-        <Image x:Name="image3" HorizontalAlignment="Left" Height="270" Margin="582,198,0,0" VerticalAlignment="Top" Width="193"/>
-        <Image x:Name="image4" HorizontalAlignment="Left" Height="270" Margin="834,198,0,0" VerticalAlignment="Top" Width="193"/>
-        <Image x:Name="image5" HorizontalAlignment="Left" Height="270" Margin="1083,198,0,0" VerticalAlignment="Top" Width="193"/>
-        <Image x:Name="image6" HorizontalAlignment="Left" Height="198" Margin="772,620,0,0" VerticalAlignment="Top" Width="137"/>
-        <Image x:Name="image7" HorizontalAlignment="Left" Height="198" Margin="939,620,0,0" VerticalAlignment="Top" Width="137"/>
-        <Label x:Name="label" Content="Apuesta Total: " HorizontalAlignment="Left" Margin="64,62,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="label_Copy" Content="0" HorizontalAlignment="Left" Margin="226,62,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="198" Margin="30,620,0,0" VerticalAlignment="Top" Width="552"/>
-        <Label x:Name="label_Copy1" Content="Jugadores: " HorizontalAlignment="Left" Margin="30,578,0,0" VerticalAlignment="Top" Width="248" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="label_Copy2" Content="Tú Mano: " HorizontalAlignment="Left" Margin="848,578,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonCall" Content="Call" HorizontalAlignment="Left" Height="38" Margin="1124,651,0,0" VerticalAlignment="Top" Width="192"/>
+        <Button x:Name="buttonFold" Content="Fold" HorizontalAlignment="Left" Height="38" Margin="1124,694,0,0" VerticalAlignment="Top" Width="192"/>
+        <Button x:Name="buttonRaise" Content="Raise" HorizontalAlignment="Left" Height="38" Margin="1124,737,0,0" VerticalAlignment="Top" Width="192"/>
+        <Button x:Name="buttonClick" Content="Check" HorizontalAlignment="Left" Height="38" Margin="1124,780,0,0" VerticalAlignment="Top" Width="192"/>
+        <Image x:Name="flop1" HorizontalAlignment="Left" Height="270" Margin="85,198,0,0" VerticalAlignment="Top" Width="193"/>
+        <Image x:Name="flop2" HorizontalAlignment="Left" Height="270" Margin="337,198,0,0" VerticalAlignment="Top" Width="193"/>
+        <Image x:Name="flop3" HorizontalAlignment="Left" Height="270" Margin="582,198,0,0" VerticalAlignment="Top" Width="193"/>
+        <Image x:Name="turn" HorizontalAlignment="Left" Height="270" Margin="834,198,0,0" VerticalAlignment="Top" Width="193"/>
+        <Image x:Name="river" HorizontalAlignment="Left" Height="270" Margin="1083,198,0,0" VerticalAlignment="Top" Width="193"/>
+        <Image x:Name="manoCarta1" HorizontalAlignment="Left" Height="198" Margin="772,620,0,0" VerticalAlignment="Top" Width="137"/>
+        <Image x:Name="manoCarta2" HorizontalAlignment="Left" Height="198" Margin="939,620,0,0" VerticalAlignment="Top" Width="137"/>
+        <Label x:Name="labelApuestaTotal" Content="Apuesta Total: " HorizontalAlignment="Left" Margin="64,62,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="labelApuestaTotalActual" Content="0" HorizontalAlignment="Left" Margin="226,62,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold"/>
+        <DataGrid x:Name="tablaJugadores" HorizontalAlignment="Left" Height="198" Margin="30,620,0,0" VerticalAlignment="Top" Width="552"/>
+        <Label x:Name="labelTablaJugadores" Content="Jugadores: " HorizontalAlignment="Left" Margin="30,578,0,0" VerticalAlignment="Top" Width="248" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="labelManoJugador" Content="Tú Mano: " HorizontalAlignment="Left" Margin="848,578,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
 
     </Grid>
 </Window>
