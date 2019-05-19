@@ -39,10 +39,10 @@ namespace Cliente
             set { ApuestaActual = value; }
         }
 
-        int role
+        int Role
         {
-            get { return role; }
-            set { role = value; }
+            get { return Role; }
+            set { Role = value; }
         }
 
         bool Activo
@@ -74,16 +74,5 @@ namespace Cliente
             Activo = activo;
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Jugador jugador &&
-                   NombreUsuario == jugador.NombreUsuario &&
-                   Password == jugador.Password &&
-                   NumJugador == jugador.NumJugador &&
-                   CantFichas == jugador.CantFichas &&
-                   ApuestaActual == jugador.ApuestaActual &&
-                   role == jugador.role &&
-                   Activo == jugador.Activo;
-        }
     }
 }

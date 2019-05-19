@@ -8,17 +8,9 @@ namespace Cliente
 {
     class Carta
     {
-        string Leyenda
-        {
-            get { return Leyenda; }
-            set { Leyenda = value; }
-        }
+        private string Leyenda { get; set; }
 
-        int TipoPalo
-        {
-            get { return TipoPalo; }
-            set { TipoPalo = value; }
-        }
+        private int TipoPalo { get; set; }
 
         public static int ESPADAS = 0;
         public static int CORAZONES = 1;
@@ -32,17 +24,15 @@ namespace Cliente
         }
 
         // Constructor que toma argumentos:
-        public Carta(string leyanda, int tipoPalo)
+        public Carta(string leyenda, int tipoPalo)
         {
-            Leyenda = leyanda;
+            Leyenda = leyenda;
             TipoPalo = tipoPalo;
         }
 
-        public override bool Equals(object obj)
+        public override string ToString()
         {
-            return obj is Carta carta &&
-                   Leyenda == carta.Leyenda &&
-                   TipoPalo == carta.TipoPalo;
+            return String.Format("Leyenda: {0}; TipoPalo: {1};", Leyenda, TipoPalo);
         }
 
     }
