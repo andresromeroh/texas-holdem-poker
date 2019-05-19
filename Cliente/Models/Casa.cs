@@ -14,17 +14,16 @@ namespace Cliente.Models
 
         private Jugador[] Jugadores { get; set; }
 
-        private int JugadorDealer { get; set; }
-
-        private int JugadorAlta { get; set; }
-
-        private int JugadorMinima { get; set; }
-
         private int ApuestaAlta { get; set; }
 
         private int ApuestaMinima { get; set; }
 
         private int ApuestaTotal { get; set; }
+
+        Casa()
+        {
+            LlenarMazo();
+        }
 
         void LlenarMazo()
         {
@@ -43,17 +42,6 @@ namespace Cliente.Models
             Mazo = new Stack<Carta>(cartas);
         }
 
-        Casa()
-        {
-            LlenarMazo();
-        }
-
-        static void Main(string[] args)
-        {
-            Casa casa = new Casa();
-
-        }
-
         public static void Barajar(List<Carta> list)
         {
             Random rng = new Random();
@@ -68,5 +56,12 @@ namespace Cliente.Models
             }
 
         }
+
+        static void Main(string[] args)
+        {
+            Casa casa = new Casa();
+
+        }
+
     }
 }
