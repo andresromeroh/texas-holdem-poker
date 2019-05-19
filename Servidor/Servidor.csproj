@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TCPListenerService.cs" />
+    <Compile Include="Utils\TCPClientHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

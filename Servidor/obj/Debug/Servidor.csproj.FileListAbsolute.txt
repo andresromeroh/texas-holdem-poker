@@ -1,0 +1,7 @@
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\Servidor.exe
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\Servidor.pdb
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\obj\Debug\Servidor.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\obj\Debug\Servidor.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\obj\Debug\Servidor.exe
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\obj\Debug\Servidor.pdb

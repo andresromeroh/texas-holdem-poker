@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servidor.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Servidor
     {
         static void Main(string[] args)
         {
+            TCPListenerService server = new TCPListenerService();
+            server.startService();
         }
     }
 }
