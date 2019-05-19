@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cliente.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace Cliente
     class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private Casa Casa;
 
         protected void OnPropertyChange(string propertyName)
         {

@@ -3,26 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Cliente.Models
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Casa
     {
+        [JsonProperty]
         private Stack<Carta> Mazo { get; set; }
 
+        [JsonProperty]
         private Carta[] Mesa { get; set; }
 
+        [JsonProperty]
         private Jugador[] Jugadores { get; set; }
 
+        [JsonProperty]
         private int ApuestaAlta { get; set; }
 
+        [JsonProperty]
         private int ApuestaMinima { get; set; }
 
+        [JsonProperty]
         private int ApuestaTotal { get; set; }
 
         Casa()
         {
             LlenarMazo();
+            this.ApuestaAlta = 5100;
         }
 
         void LlenarMazo()
@@ -60,7 +69,9 @@ namespace Cliente.Models
         static void Main(string[] args)
         {
             Casa casa = new Casa();
-
+            string json = JsonConvert.SerializeObject(casa);
+            Console.WriteLine("OBJETO CASA:");
+            Console.WriteLine(json);
         }
 
     }

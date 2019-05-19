@@ -32,3 +32,6 @@ C:\Users\arijo\Desktop\Operativos Poker repo\Texas-Holdem-Poker\Cliente\obj\Debu
 C:\Users\arijo\Desktop\Operativos Poker repo\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.Properties.Resources.resources
 C:\Users\arijo\Desktop\Operativos Poker repo\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csproj.GenerateResource.cache
 C:\Users\arijo\Desktop\Operativos Poker repo\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csproj.CoreCompileInputs.cache
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csproj.CopyComplete

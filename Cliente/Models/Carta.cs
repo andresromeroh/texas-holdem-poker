@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace Cliente
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Carta
     {
+        [JsonProperty]
         private string Leyenda { get; set; }
 
+        [JsonProperty]
         private int TipoPalo { get; set; }
 
         public static int ESPADAS = 0;
