@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,45 +7,52 @@ using System.Threading.Tasks;
 
 namespace Cliente
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Jugador
     {
-
+        [JsonProperty]
         string NombreUsuario
         {
             get { return NombreUsuario; }
             set { NombreUsuario = value; }
         }
 
+        [JsonProperty]
         string Password
         {
             get { return Password; }
             set { Password = value; }
         }
 
+        [JsonProperty]
         int NumJugador
         {
             get { return NumJugador; }
             set { NumJugador = value; }
         }
 
+        [JsonProperty]
         int CantFichas
         {
             get { return CantFichas; }
             set { CantFichas = value; }
         }
 
+        [JsonProperty]
         int ApuestaActual
         {
             get { return ApuestaActual; }
             set { ApuestaActual = value; }
         }
 
+        [JsonProperty]
         int Role
         {
             get { return Role; }
             set { Role = value; }
         }
 
+        [JsonProperty]
         bool Activo
         {
             get { return Activo; }
