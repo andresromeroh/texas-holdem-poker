@@ -26,7 +26,7 @@ namespace Servidor.Services
                 server.Start();
 
                 // Entrar en el loop de "escucha"
-                while (connectedClients < 4)
+                while (connectedClients < 2)
                 {
                     Console.Write("Waiting for a connection... \n");
                     TcpClient client = server.AcceptTcpClient();
@@ -36,6 +36,7 @@ namespace Servidor.Services
                     TCPClientHandler clientHandler = new TCPClientHandler();
                     clientHandler.startClient(client, Convert.ToString(connectedClients));
                 }
+
             }
             catch (SocketException e)
             {
