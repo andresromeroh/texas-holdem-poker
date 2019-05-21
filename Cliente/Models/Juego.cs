@@ -31,6 +31,7 @@ namespace Cliente.Models
         Juego()
         {
             LlenarMazo();
+            Mesa = new Carta[5];
             this.ApuestaAlta = 5100;
         }
 
@@ -64,6 +65,33 @@ namespace Cliente.Models
                 list[n] = value;
             }
 
+        }
+
+        public void Flop()
+        {
+            for(int i=0;i<3;i++)
+                Mesa[i] = Mazo.Pop();
+        }
+
+        public void River()
+        {
+            for (int i = 0; i < Mesa.Length; i++){
+                if (Mesa[i] == null)
+                {
+                    Mesa[i] = Mazo.Pop();
+                }
+            }
+        }
+
+        public void Turn()
+        {
+            for (int i = 0; i < Mesa.Length; i++)
+            {
+                if (Mesa[i] == null)
+                {
+                    Mesa[i] = Mazo.Pop();
+                }
+            }
         }
 
         static void Main(string[] args)

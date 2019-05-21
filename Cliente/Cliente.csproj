@@ -61,7 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Casa.cs" />
+    <Compile Include="Models\Juego.cs" />
     <Compile Include="Services\TCPClientService.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="Views\Login.xaml">
