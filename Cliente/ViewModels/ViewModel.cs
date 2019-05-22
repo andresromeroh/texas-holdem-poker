@@ -12,7 +12,8 @@ namespace Cliente
     class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private Juego juego;
+        public TCPClientService clientService = null;
+        public Juego juego;
 
         protected void OnPropertyChange(string propertyName)
         {

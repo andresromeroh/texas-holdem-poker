@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Cliente.Tests.Test</StartupObject>
+    <StartupObject>Cliente.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -65,7 +65,7 @@
     <Compile Include="Services\TCPClientService.cs" />
     <Compile Include="Tests\Test.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Page Include="Views\Login.xaml">
+    <Page Include="Views\Servidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,8 +79,8 @@
     </Compile>
     <Compile Include="Models\Carta.cs" />
     <Compile Include="Models\Jugador.cs" />
-    <Compile Include="Views\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+    <Compile Include="Views\Servidor.xaml.cs">
+      <DependentUpon>Servidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mesa.xaml.cs">
       <DependentUpon>Mesa.xaml</DependentUpon>

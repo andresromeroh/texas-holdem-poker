@@ -22,11 +22,17 @@ namespace Cliente
         public Login()
         {
             InitializeComponent();
+
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void conectarServidor(object sender, RoutedEventArgs e)
         {
+            string servidor = this.textBox_servidor.Text;
+            Int32 puerto = Int32.Parse(this.textBox_puerto.Text);
 
+            TCPClientService clientService = new TCPClientService();
+            clientService.startService(servidor, puerto);
+            clientService.sendMessage("TEST XAML");
         }
     }
 }
