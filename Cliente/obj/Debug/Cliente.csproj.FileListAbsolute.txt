@@ -1,7 +1,6 @@
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Cliente.exe.config
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Cliente.exe
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Cliente.pdb
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csprojAssemblyReference.cache
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\App.g.cs
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente_MarkupCompile.cache
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente_MarkupCompile.lref

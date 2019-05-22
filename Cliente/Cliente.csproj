@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Cliente.Models.Casa</StartupObject>
+    <StartupObject>Cliente.Tests.Test</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Juego.cs" />
     <Compile Include="Services\TCPClientService.cs" />
+    <Compile Include="Tests\Test.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="Views\Login.xaml">
       <SubType>Designer</SubType>
@@ -113,5 +114,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
