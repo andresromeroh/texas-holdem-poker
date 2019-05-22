@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servidor.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -25,7 +26,7 @@ namespace Servidor.Utils
         public void handleMessage()
         {
             // Buffer para leer data
-            Byte[] bytes = new Byte[256];
+            Byte[] bytes = new Byte[16384];
             String data = null;
 
             // Obtener objeto string para lectura y escritura
@@ -38,6 +39,7 @@ namespace Servidor.Utils
             {
                 // Transformar la da a formato ASCII
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+
                 Console.WriteLine("Received from client #{0}: {1} \n", ClientNo, data);
 
                 // Procesar la data enviada por el cliente

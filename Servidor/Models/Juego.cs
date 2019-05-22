@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Servidor.Models;
 
-namespace Servidor.Models
+namespace Cliente.Models
 {
     [JsonObject(MemberSerialization.OptIn)]
     class Juego
@@ -14,10 +15,10 @@ namespace Servidor.Models
         private Stack<Carta> Mazo { get; set; }
 
         [JsonProperty]
-        private Carta[] Mesa { get; set; }
+        private List<Carta> Mesa { get; set; }
 
         [JsonProperty]
-        private Jugador[] Jugadores { get; set; }
+        private List<Jugador> Jugadores { get; set; }
 
         [JsonProperty]
         private int ApuestaAlta { get; set; }
@@ -28,10 +29,11 @@ namespace Servidor.Models
         [JsonProperty]
         private int ApuestaTotal { get; set; }
 
-        Juego()
+        public Juego()
         {
             LlenarMazo();
-            this.ApuestaAlta = 5100;
+            Mesa = new List<Carta>();
+            Jugadores = new List<Jugador>();
         }
 
         void LlenarMazo()
@@ -64,6 +66,34 @@ namespace Servidor.Models
                 list[n] = value;
             }
 
+        }
+
+        public void Flop()
+        {
+            for (int i = 0; i < 3; i++)
+                Mesa[i] = Mazo.Pop();
+        }
+
+        public void River()
+        {
+            for (int i = 0; i < Mesa.Count; i++)
+            {
+                if (Mesa[i] == null)
+                {
+                    Mesa[i] = Mazo.Pop();
+                }
+            }
+        }
+
+        public void Turn()
+        {
+            for (int i = 0; i < Mesa.Count; i++)
+            {
+                if (Mesa[i] == null)
+                {
+                    Mesa[i] = Mazo.Pop();
+                }
+            }
         }
 
     }
