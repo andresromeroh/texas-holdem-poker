@@ -32,7 +32,7 @@ namespace Cliente
 
             TCPClientService clientService = new TCPClientService();
             clientService.startService(servidor, puerto);
-            clientService.sendMessage("TEST XAML");
+            clientService.handleResponse();
         }
     }
 }
