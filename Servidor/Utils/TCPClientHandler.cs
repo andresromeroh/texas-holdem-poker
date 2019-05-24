@@ -6,6 +6,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Cliente.Models;
 
 namespace Servidor.Utils
 {
@@ -15,12 +17,40 @@ namespace Servidor.Utils
         public TcpClient ClientSocket;
         public string ClientNo;
 
+        public Juego Juego = new Juego(); // Juego principal que sera enviado a los jugadores
+
         public void startClient(TcpClient clientSocket, string clientNo)
         {
             this.ClientSocket = clientSocket;
             this.ClientNo = clientNo;
-            Thread thread = new Thread(handleMessage);
+            Thread thread = new Thread(startGame);
             thread.Start();
+        }
+
+        public void startGame()
+        {
+            // Buffer para leer data
+            Byte[] bytes = new Byte[16384];
+            String data = null;
+
+            // Obtener objeto string para lectura y escritura
+            NetworkStream stream = ClientSocket.GetStream();
+
+            int i;
+
+            // Enviar el juego inicial
+            string json = JsonConvert.SerializeObject(this.Juego);
+
+            // Procesar la data enviada por el cliente
+            byte[] response = System.Text.Encoding.ASCII.GetBytes(json);
+
+            // Respuesta de vuelta "callback"
+            stream.Write(response, 0, response.Length);
+            Console.WriteLine("Sent: {0}", json);
+
+            // Shutdown and end connection
+            //ClientSocket.Close();
+
         }
 
         public void handleMessage()

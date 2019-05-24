@@ -13,9 +13,6 @@ namespace Servidor
     {
         static void Main(string[] args)
         {
-            Juego juego = new Juego();
-            string json = JsonConvert.SerializeObject(juego);
-            Console.WriteLine(json);
             TCPListenerService server = new TCPListenerService();
             server.startService();
         }
