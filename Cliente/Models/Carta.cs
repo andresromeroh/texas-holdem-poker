@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Cliente
 {
     [JsonObject(MemberSerialization.OptIn)]
-    class Carta
+    public class Carta
     {
         [JsonProperty]
         string Leyenda { get; set; }
