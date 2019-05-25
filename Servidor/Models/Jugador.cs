@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Servidor.Models
 {
     [JsonObject(MemberSerialization.OptIn)]
-    class Jugador
+    public class Jugador
     {
         [JsonProperty]
         string NombreUsuario

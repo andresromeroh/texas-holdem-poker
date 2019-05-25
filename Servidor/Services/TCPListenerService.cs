@@ -1,4 +1,5 @@
-﻿using Servidor.Utils;
+﻿using Cliente.Models;
+using Servidor.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Servidor.Services
 {
-    class TCPListenerService
+    public class TCPListenerService
     {
         TcpListener server = null;
         int connectedClients = 0;
@@ -18,6 +19,8 @@ namespace Servidor.Services
         {
             try
             {
+                Juego juego = new Juego();
+
                 // Escuchar en puerto 11000.
                 Int32 port = 11000;
                 server = new TcpListener(IPAddress.Any, port);
@@ -34,6 +37,7 @@ namespace Servidor.Services
 
                     Console.WriteLine(" >> " + "Player No " + Convert.ToString(connectedClients) + " connected!");
                     TCPClientHandler clientHandler = new TCPClientHandler();
+                    clientHandler.Juego = juego;
                     clientHandler.startClient(client, Convert.ToString(connectedClients));
                 }
 

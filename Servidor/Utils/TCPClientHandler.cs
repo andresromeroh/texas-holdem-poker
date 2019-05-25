@@ -11,13 +11,12 @@ using Cliente.Models;
 
 namespace Servidor.Utils
 {
-    class TCPClientHandler
+    public class TCPClientHandler
     {
 
         public TcpClient ClientSocket;
         public string ClientNo;
-
-        public Juego Juego = new Juego(); // Juego principal que sera enviado a los jugadores
+        public Juego Juego = null;
 
         public void startClient(TcpClient clientSocket, string clientNo)
         {

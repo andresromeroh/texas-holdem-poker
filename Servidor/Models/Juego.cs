@@ -9,7 +9,7 @@ using Servidor.Models;
 namespace Cliente.Models
 {
     [JsonObject(MemberSerialization.OptIn)]
-    class Juego
+    public class Juego
     {
         [JsonProperty]
         private Stack<Carta> Mazo { get; set; }
