@@ -18,47 +18,43 @@ namespace Servidor
         public StreamWriter Writer;
         public Jugador Jugador = null;
 
-        //string Name;
-        //int money;
-        //int inroundmoney = 0;
-        //int position = 50;
-        //int hefresh = 0;
-        //Carta[] mano = new Carta[2];
-
         public Cliente(TcpClient Socket)
         {
             this.Socket = Socket;
-            Reader = new StreamReader(this.Socket.GetStream());
-            Writer = new StreamWriter(this.Socket.GetStream());
+            Reader = new StreamReader(this.Socket.GetStream()); //Obtener stream de lectura
+            Writer = new StreamWriter(this.Socket.GetStream()); //Obtener stream de escritura
             Writer.AutoFlush = true;
-            Thread = new Thread(Login);
+
+            /* Inicia el hilo individual del jugador, para volver a escuchar en el puerto
+             * por nuevos jugadores que desean unirse */
+            Thread = new Thread(Login); 
             Thread.Start();
         }
 
         private void Login() //Aqui se implementa la autenticacion Active Directory
         {
-            while (Jugador == null)
+            while (Jugador == null) //Mientras el jugador no haya sido definido
             {
                 try
                 {
-                    string json = Reader.ReadLine();
-                    Jugador deserializedJugador = JsonConvert.DeserializeObject<Jugador>(json);
+                    string json = Reader.ReadLine(); // json enviado desde el cliente
+                    Jugador deserializedJugador = JsonConvert.DeserializeObject<Jugador>(json); // Esperado: Un objeto jugador en formato JSON
 
-                    if (deserializedJugador != null)
+                    if (deserializedJugador != null) // Validar que no sea un jugador null
                     {
-                        Writer.WriteLine("1");
-                        this.Jugador = deserializedJugador;
-                        Lobby();
+                        Writer.WriteLine(JsonConvert.SerializeObject("1")); // Confirmacion al cliente de autenticacion exitosa
+                        this.Jugador = deserializedJugador; // Set del jugador
+                        entrarSala(Socket); // Se entra a la sala
                     }
                     else
                     {
-                        Writer.WriteLine("0");
+                        Writer.WriteLine(JsonConvert.SerializeObject("0")); // Error de autenticacion
                         Thread.Sleep(5000);
                     }
                 }
                 catch
                 {
-                    Disconnect();
+                    Disconnect(); // Desconectar el cliente en caso de error
                 }
             }
         }
@@ -70,46 +66,11 @@ namespace Servidor
             Socket.Close();
         }
 
-        private void Lobby()
+        private void entrarSala(TcpClient socket)
         {
-            string rec;
-            while ((rec = Reader.ReadLine()) != "Exit$")
-            {
-                try
-                {
-                    LobbyRequest(rec);
-                }
-                catch
-                {
-                    Disconnect();
-                }
-            }
-            Disconnect();
+            Sala.Mesa.Add(this);
+            Sala.Mesa.Juego.Jugadores.Append(this.Jugador);
         }
 
-        private void LobbyRequest(string a)
-        {
-            string[] command = new string[3];
-            for (int i = 0; a.IndexOf('$') != -1; i++)
-            {
-                command[i] = a.Substring(0, a.IndexOf('$'));
-                a = a.Remove(0, a.IndexOf('$') + 1);
-            }
-            if (command[0] == "List")
-            {
-                string tmp = null;
-                int i = 0;
-                foreach (Table n in ServerLobby.Tables)
-                {
-                    tmp += i + "$" + n.ToString() + "@";
-                    i++;
-                }
-                Writer.WriteLine(tmp);
-            }
-            else if (command[0] == "Spectate")
-                ServerLobby.Tables[int.Parse(command[1])].Spectate(this);
-            else if (command[0] == "Money")
-                Writer.WriteLine(money);
-        }
     }
 }

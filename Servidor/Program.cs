@@ -1,11 +1,4 @@
-﻿using Cliente.Models;
-using Servidor.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System;
 using System.Net.Sockets;
 using System.Net;
 
@@ -25,8 +18,8 @@ namespace Servidor
 
             while (true)
             {
-                clientSocket = serverSocket.AcceptTcpClient();
-                //Client client = new Client(clientSocket);
+                clientSocket = serverSocket.AcceptTcpClient(); // Aceptar el Jugador entrante
+                Cliente cliente = new Cliente(clientSocket); // Crear un nuevo objeto Cliente el cual dirigira la logica de juego del jugador
             }
         }
     }

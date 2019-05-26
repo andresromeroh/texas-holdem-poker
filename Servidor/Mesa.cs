@@ -9,16 +9,17 @@ namespace Servidor
 {
     class Mesa
     {
-        int Size;
-        Juego Juego = null;
-        Thread ThreadJuego;
-        List<Cliente> ClientesJugador;
+        public int Size;
+        public Juego Juego = null; // Objeto principal a serializar como respuesta continua
+        public Thread ThreadJuego;
+        public List<Cliente> ClientesJugador; // Lista de clientes actualmente conectados
 
         public Mesa(int size, int apuestaMinima)
         {
-            this.Size = size;
+            this.Size = size; // Definir el tamanno de la mesa
             ClientesJugador = new List<Cliente>();
-            Juego.ApuestaMinima = apuestaMinima;
+            Juego = new Juego();
+            Juego.ApuestaMinima = apuestaMinima; // Definir la apuesta minima
         }
 
         public int FindNextSeat()
@@ -45,23 +46,17 @@ namespace Servidor
 
         public void Add(Cliente cliente)
         {
+            ClientesJugador.Append(cliente);
             cliente.Jugador.NumJugador = FindNextSeat();
+            Juego.Jugadores.Append(cliente.Jugador);
 
             //Informar a los demas jugadores luego de que un nuevo jugador se une
             //inform()
 
             if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
             {
-                if (Juego == null)
-                {
-                    ThreadJuego = new Thread(Game);
-                    ThreadJuego.Start();
-                }
-                else if (!ThreadJuego.IsAlive)
-                {
-                    ThreadJuego = new Thread(Game);
-                    ThreadJuego.Start();
-                }
+                ThreadJuego = new Thread(Game);
+                ThreadJuego.Start();
             }
             else
             {

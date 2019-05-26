@@ -41,7 +41,6 @@ namespace Servidor
             string[] leyendas = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
             List<Carta> cartas = new List<Carta>();
 
-
             for (int i = 0; i < 4; i++)
             {
                 for (int p = 0; p < 13; p++)
@@ -49,6 +48,7 @@ namespace Servidor
                     cartas.Add(new Carta(leyendas[p], i));
                 }
             }
+
             Barajar(cartas);
             Mazo = new Stack<Carta>(cartas);
         }
@@ -96,6 +96,39 @@ namespace Servidor
             }
         }
 
+        public void Showdown()
+        {
+
+        }
+
+        public void EarlyWin()
+        {
+
+        }
+
+        public void PlayerMove(Cliente cliente)
+        {
+
+        }
+
+        public void Collect()
+        {
+
+        }
+
+        public void Deal()
+        {
+            foreach (Jugador jugador in Jugadores)
+            {
+                jugador.Mano = repartirJugador();
+                //jugador.Writer.WriteLine("Pocket$0$" + jugador.Pocket[0]); Enviar las cartas solo al jugador correspondiente
+            }
+        }
+
+        public Carta[] repartirJugador()
+        {
+            return null; //Aqui se requiere repartir 2 cartas del top del mazo
+        }
 
     }
 }

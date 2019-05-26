@@ -8,16 +8,10 @@ namespace Servidor
 {
     static class Sala
     {
-        public static Mesa mesa = null;
-
-        public static Mesa Mesa
-        {
-            get { return Mesa; }
-        }
-
+        public static Mesa Mesa = null;
         public static void Init()
         {
-            mesa = new Mesa(4, 100); // Mesa de 4 jugadores con apuesta minima de $100
+            Mesa = new Mesa(4, 100); // Mesa de 4 jugadores con apuesta minima de $100
         }
     }
 }
