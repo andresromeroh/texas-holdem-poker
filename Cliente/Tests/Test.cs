@@ -12,13 +12,6 @@ namespace Cliente.Tests
     {
         static void Main(string[] args)
         {
-            Juego juego = new Juego();
-            TCPClientService clientService = new TCPClientService();
-            clientService.startService("3.14.121.156", 11000);
-            string json = JsonConvert.SerializeObject(juego);
-            Console.WriteLine("OBJETO JUEGO:");
-            Console.WriteLine(json);
-            clientService.sendMessage(json);
         }
     }
 }

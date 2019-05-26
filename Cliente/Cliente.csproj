@@ -62,10 +62,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Juego.cs" />
-    <Compile Include="Services\TCPClientService.cs" />
+    <Compile Include="Services\Cliente.cs" />
     <Compile Include="Tests\Test.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Page Include="Views\Servidor.xaml">
+    <Page Include="Views\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,8 +79,8 @@
     </Compile>
     <Compile Include="Models\Carta.cs" />
     <Compile Include="Models\Jugador.cs" />
-    <Compile Include="Views\Servidor.xaml.cs">
-      <DependentUpon>Servidor.xaml</DependentUpon>
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mesa.xaml.cs">
       <DependentUpon>Mesa.xaml</DependentUpon>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Cliente"
         mc:Ignorable="d"
         Title="MainWindow" Height="902.804" Width="1374.263">
-    <Grid Background="#FF0F5319">
+    <Grid Background="#FF1D762A">
         <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="848,480,0,0" VerticalAlignment="Top" Width="100"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="270" Margin="85,198,0,0" VerticalAlignment="Top" Width="193"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="270" Margin="337,198,0,0" VerticalAlignment="Top" Width="193"/>

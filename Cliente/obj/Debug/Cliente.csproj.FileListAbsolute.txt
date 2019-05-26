@@ -32,6 +32,5 @@ C:\Users\arijo\Desktop\Operativos Poker repo\Texas-Holdem-Poker\Cliente\obj\Debu
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csproj.CopyComplete
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csprojAssemblyReference.cache
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Servidor.g.cs
-C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Servidor.baml
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Login.g.cs
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Login.baml

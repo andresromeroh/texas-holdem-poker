@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\App.xaml
-2-992144240
+2-1993127810
 
-13-145272997
+13-82850743
 14142720981
-Views\Servidor.xaml;Views\Mesa.xaml;
+Views\Login.xaml;Views\Mesa.xaml;
 
-False
+True
 
