@@ -1,0 +1,19 @@
+﻿<Window x:Class="Cliente.ServidorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cliente"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid Background="#FF0F5319">
+        <Label x:Name="label_titulo" Content="Texas Holdem Poker" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F"/>
+        <Label x:Name="label_version" Content="v 1.0" HorizontalAlignment="Left" Margin="717,372,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F"/>
+        <Label x:Name="label_servidor" Content="IP del Servidor" HorizontalAlignment="Left" Height="35" Margin="192,165,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" FontSize="14" Foreground="#FFF7F6F6"/>
+        <TextBox x:Name="textBox_servidor" HorizontalAlignment="Left" Height="23" Margin="348,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="label_puerto" Content="Num. Puerto" HorizontalAlignment="Left" Height="35" Margin="192,221,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" FontSize="14" Foreground="#FFF7F6F6"/>
+        <TextBox x:Name="textBox_puerto" HorizontalAlignment="Left" Height="24" Margin="348,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+        <Button x:Name="button_conectar" Content="Conectar" HorizontalAlignment="Left" Margin="289,291,0,0" VerticalAlignment="Top" Width="162" Click="conectarServidor"/>
+        
+    </Grid>
+</Window>
