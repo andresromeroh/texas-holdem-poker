@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Servidor.Models
+namespace Servidor
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class Carta

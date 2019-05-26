@@ -4,30 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Servidor.Models;
+using Servidor;
 
-namespace Cliente.Models
+namespace Servidor
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class Juego
     {
         [JsonProperty]
-        private Stack<Carta> Mazo { get; set; }
+        public Stack<Carta> Mazo;
 
         [JsonProperty]
-        private List<Carta> Mesa { get; set; }
+        public List<Carta> Mesa;
 
         [JsonProperty]
-        private List<Jugador> Jugadores { get; set; }
+        public List<Jugador> Jugadores;
 
         [JsonProperty]
-        private int ApuestaAlta { get; set; }
+        public int ApuestaAlta;
 
         [JsonProperty]
-        private int ApuestaMinima { get; set; }
+        public int ApuestaMinima;
 
         [JsonProperty]
-        private int ApuestaTotal { get; set; }
+        public int ApuestaTotal;
 
         public Juego()
         {
@@ -95,6 +95,7 @@ namespace Cliente.Models
                 }
             }
         }
+
 
     }
 }

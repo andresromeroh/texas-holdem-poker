@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Servidor
 {
@@ -13,8 +15,19 @@ namespace Servidor
     {
         static void Main(string[] args)
         {
-            TCPListenerService server = new TCPListenerService();
-            server.startService();
+            TcpListener serverSocket = new TcpListener(IPAddress.Any, 11000);
+            TcpClient clientSocket = null;
+
+            serverSocket.Start();
+            Console.WriteLine("Servidor iniciado...");
+
+            Sala.Init();
+
+            while (true)
+            {
+                clientSocket = serverSocket.AcceptTcpClient();
+                //Client client = new Client(clientSocket);
+            }
         }
     }
 }
