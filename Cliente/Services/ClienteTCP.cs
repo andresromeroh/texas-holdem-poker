@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace Cliente.Services
 {
-    static class Cliente
+    static class ClienteTCP
     {
         static TcpClient server = new TcpClient();
         static StreamWriter writer;
@@ -34,9 +34,9 @@ namespace Cliente.Services
         //    set { fichas = value; }
         //}
 
-        public static void Write(string a)
+        public static void Write(string json)
         {
-            writer.WriteLine(a);
+            writer.WriteLine(json);
         }
 
         public static string Read()

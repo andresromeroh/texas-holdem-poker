@@ -19,17 +19,17 @@
         <TextBox x:Name="textBox_puerto" HorizontalAlignment="Left" Height="24" Margin="199,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
         <Button x:Name="button_conectar" Content="Conectar" HorizontalAlignment="Left" Margin="270,335,0,0" VerticalAlignment="Top" Width="277" Click="conectarServidor" Height="42"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="138" Margin="13,147,0,0" VerticalAlignment="Top" Width="379"/>
-        <Label x:Name="label_servidor_Copy" Content="Username" HorizontalAlignment="Left" Height="35" Margin="456,176,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" FontSize="14" Foreground="#FFF7F6F6"/>
-        <TextBox x:Name="textBox_servidor_Copy" HorizontalAlignment="Left" Height="23" Margin="612,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2"/>
-        <Label x:Name="label_puerto_Copy" Content="Password" HorizontalAlignment="Left" Height="35" Margin="456,232,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" FontSize="14" Foreground="#FFF7F6F6"/>
-        <TextBox x:Name="textBox_puerto_Copy" HorizontalAlignment="Left" Height="24" Margin="612,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2"/>
+        <Label x:Name="label_username" Content="Username" HorizontalAlignment="Left" Height="35" Margin="456,176,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" FontSize="14" Foreground="#FFF7F6F6"/>
+        <TextBox x:Name="textBox_username" HorizontalAlignment="Left" Height="23" Margin="612,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2"/>
+        <Label x:Name="label_password" Content="Password" HorizontalAlignment="Left" Height="35" Margin="456,232,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" FontSize="14" Foreground="#FFF7F6F6"/>
+        <TextBox x:Name="textBox_password" HorizontalAlignment="Left" Height="24" Margin="612,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="138" Margin="426,147,0,0" VerticalAlignment="Top" Width="379" Grid.ColumnSpan="2"/>
-        <Label x:Name="label" Content="Información del Servidor:" HorizontalAlignment="Left" Margin="13,116,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="31" Width="203"/>
-        <Label x:Name="label_Copy" Content="Información del Jugador:" HorizontalAlignment="Left" Margin="426,116,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="31" Width="200"/>
-        <Label x:Name="label_titulo_Copy" Content="♠" HorizontalAlignment="Left" Margin="307,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="Black" Height="47" Width="40"/>
-        <Label x:Name="label_titulo_Copy1" Content="♥" HorizontalAlignment="Left" Margin="352,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
-        <Label x:Name="label_titulo_Copy2" Content="♣" HorizontalAlignment="Left" Margin="397,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FF060606" Height="47" Width="40"/>
-        <Label x:Name="label_titulo_Copy3" Content="♦" HorizontalAlignment="Left" Margin="442,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
+        <Label x:Name="label_servidor_info" Content="Información del Servidor:" HorizontalAlignment="Left" Margin="13,116,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="31" Width="203"/>
+        <Label x:Name="label_jugador_info" Content="Información del Jugador:" HorizontalAlignment="Left" Margin="426,116,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="31" Width="200"/>
+        <Label x:Name="espada" Content="♠" HorizontalAlignment="Left" Margin="307,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="Black" Height="47" Width="40"/>
+        <Label x:Name="corazon" Content="♥" HorizontalAlignment="Left" Margin="352,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
+        <Label x:Name="trebol" Content="♣" HorizontalAlignment="Left" Margin="397,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FF060606" Height="47" Width="40"/>
+        <Label x:Name="diamante" Content="♦" HorizontalAlignment="Left" Margin="442,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
 
     </Grid>
 </Window>

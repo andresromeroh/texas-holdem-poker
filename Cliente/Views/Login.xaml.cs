@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Cliente.Services;
+using Newtonsoft.Json;
 
 namespace Cliente
 {
@@ -28,11 +20,32 @@ namespace Cliente
         {
             string servidor = this.textBox_servidor.Text;
             Int32 puerto = Int32.Parse(this.textBox_puerto.Text);
-            /*
-            TCPClientService clientService = new TCPClientService();
-            clientService.startService(servidor, puerto);
-            clientService.handleResponse();
-            */
+            string username = this.textBox_username.Text;
+            string password = this.textBox_password.Text;
+
+            Jugador jugador = new Jugador(username, password, 10000, true);
+            string json = JsonConvert.SerializeObject(jugador);
+
+            ClienteTCP.Init(servidor, puerto);
+            ClienteTCP.Write(json);
+
+            Thread.Sleep(5000);
+
+            string jsonResponse = ClienteTCP.Read();
+            bool loginExitoso = JsonConvert.DeserializeObject<bool>(jsonResponse);
+            
+            if(loginExitoso)
+            {
+                Mesa mesa = new Mesa();
+                //Abrir la pantalla de mesa
+                mesa.Show();
+                //Cerrar la pantalla de login
+                this.Close();
+            }
+            else
+            {
+                //Mostrar advertencia de credenciales incorrectos
+            }
         }
     }
 }

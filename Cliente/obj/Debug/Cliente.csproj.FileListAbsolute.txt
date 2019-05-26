@@ -34,3 +34,4 @@ C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\bin\Debug\Newtonsoft
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csproj.CopyComplete
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Login.g.cs
 C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Views\Login.baml
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Cliente\obj\Debug\Cliente.csprojAssemblyReference.cache

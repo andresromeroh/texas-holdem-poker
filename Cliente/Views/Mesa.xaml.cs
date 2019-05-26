@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Cliente
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Mesa.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Mesa : Window
     {
-        public MainWindow()
+        public Mesa()
         {
             InitializeComponent();
         }

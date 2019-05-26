@@ -11,53 +11,28 @@ namespace Cliente
     public class Jugador
     {
         [JsonProperty]
-        string NombreUsuario
-        {
-            get { return NombreUsuario; }
-            set { NombreUsuario = value; }
-        }
+        public string NombreUsuario;
 
         [JsonProperty]
-        string Password
-        {
-            get { return Password; }
-            set { Password = value; }
-        }
+        public string Password;
 
         [JsonProperty]
-        int NumJugador
-        {
-            get { return NumJugador; }
-            set { NumJugador = value; }
-        }
+        public int NumJugador;
 
         [JsonProperty]
-        int CantFichas
-        {
-            get { return CantFichas; }
-            set { CantFichas = value; }
-        }
+        public Carta[] Mano;
 
         [JsonProperty]
-        int ApuestaActual
-        {
-            get { return ApuestaActual; }
-            set { ApuestaActual = value; }
-        }
+        public int CantFichas;
 
         [JsonProperty]
-        int Role
-        {
-            get { return Role; }
-            set { Role = value; }
-        }
+        public int ApuestaActual;
 
         [JsonProperty]
-        bool Activo
-        {
-            get { return Activo; }
-            set { Activo = value; }
-        }
+        public int Role;
+
+        [JsonProperty]
+        public bool Activo;
 
         // Tipos de roles:
         public static int REGULAR = 0;
@@ -72,13 +47,11 @@ namespace Cliente
         }
 
         // Constructor que toma argumentos:
-        public Jugador(string nombreUsuario, string password, int numJugador,int cantFichas, int apuestaActual, bool activo)
+        public Jugador(string nombreUsuario, string password, int cantFichas, bool activo)
         {
             NombreUsuario = nombreUsuario;
             Password = password;
-            NumJugador = numJugador;
             CantFichas = cantFichas;
-            ApuestaActual = apuestaActual;
             Activo = activo;
         }
 
