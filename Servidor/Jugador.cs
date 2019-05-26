@@ -48,14 +48,11 @@ namespace Servidor
         }
 
         // Constructor que toma argumentos:
-        public Jugador(string nombreUsuario, string password, int numJugador, Carta[] mano, int cantFichas, int apuestaActual, bool activo)
+        public Jugador(string nombreUsuario, string password, int cantFichas, bool activo)
         {
             NombreUsuario = nombreUsuario;
             Password = password;
-            NumJugador = numJugador;
-            Mano = mano;
             CantFichas = cantFichas;
-            ApuestaActual = apuestaActual;
             Activo = activo;
         }
 

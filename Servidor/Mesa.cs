@@ -46,13 +46,13 @@ namespace Servidor
 
         public void Add(Cliente cliente)
         {
-            ClientesJugador.Append(cliente);
+            ClientesJugador.Add(cliente);
             cliente.Jugador.NumJugador = FindNextSeat();
-            Juego.Jugadores.Append(cliente.Jugador);
+            Juego.Jugadores.Add(cliente.Jugador);
 
             //Informar a los demas jugadores luego de que un nuevo jugador se une
             //inform()
-
+            
             if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(Game);
@@ -60,7 +60,8 @@ namespace Servidor
             }
             else
             {
-                Thread.Sleep(120000); // Esperar 2 minutos a que se una otro jugador
+                Console.WriteLine("Esperando otro jugador, necesarios: 2\n");
+                Thread.Sleep(60000); // Esperar 2 minutos a que se una otro jugador
                 if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
@@ -76,6 +77,7 @@ namespace Servidor
                 }
                 else
                 {
+                    Console.WriteLine("Desconectando...\n");
                     cliente.Disconnect();
                     /*
                     if (cliente.Pocket[0].Value != 0)
@@ -99,56 +101,7 @@ namespace Servidor
 
         public void Game()
         {
-
-        }
-
-        public void Deal()
-        {
-            foreach (Jugador jugador in Juego.Jugadores)
-            {
-                jugador.Mano = repartirJugador();
-                //jugador.Writer.WriteLine("Pocket$0$" + jugador.Pocket[0]); Enviar las cartas solo al jugador correspondiente
-            }
-        }
-
-        public void Flop()
-        {
-
-        }
-
-        public void Turn()
-        {
-
-        }
-
-        public void River()
-        {
-
-        }
-
-        public void Showdown()
-        {
-
-        }
-
-        public void EarlyWin()
-        {
-
-        }
-
-        public void PlayerMove(Cliente cliente)
-        {
-
-        }
-
-        public void Collect()
-        {
-
-        }
-
-        public Carta[] repartirJugador()
-        {
-            return null; //Aqui se requiere repartir 2 cartas del top del mazo
+            Console.WriteLine("JUEGO INICIADO!!!\n");
         }
 
         public void Inform(string json)

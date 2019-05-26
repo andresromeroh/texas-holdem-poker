@@ -25,6 +25,8 @@ namespace Servidor
             Writer = new StreamWriter(this.Socket.GetStream()); //Obtener stream de escritura
             Writer.AutoFlush = true;
 
+            Console.WriteLine("Nuevo jugador conectado!\n");
+
             /* Inicia el hilo individual del jugador, para volver a escuchar en el puerto
              * por nuevos jugadores que desean unirse */
             Thread = new Thread(Login); 
@@ -39,16 +41,18 @@ namespace Servidor
                 {
                     string json = Reader.ReadLine(); // json enviado desde el cliente
                     Jugador deserializedJugador = JsonConvert.DeserializeObject<Jugador>(json); // Esperado: Un objeto jugador en formato JSON
+                    Console.WriteLine("Nombre del jugador:" + deserializedJugador.NombreUsuario + "\n");
 
                     if (deserializedJugador != null) // Validar que no sea un jugador null
                     {
-                        Writer.WriteLine(JsonConvert.SerializeObject("1")); // Confirmacion al cliente de autenticacion exitosa
+                        Writer.WriteLine(JsonConvert.SerializeObject("true")); // Confirmacion al cliente de autenticacion exitosa
+                        Console.WriteLine("Los credenciales del jugador son correctos!\n");
                         this.Jugador = deserializedJugador; // Set del jugador
                         entrarSala(Socket); // Se entra a la sala
                     }
                     else
                     {
-                        Writer.WriteLine(JsonConvert.SerializeObject("0")); // Error de autenticacion
+                        Writer.WriteLine(JsonConvert.SerializeObject("false")); // Error de autenticacion
                         Thread.Sleep(5000);
                     }
                 }
@@ -69,7 +73,6 @@ namespace Servidor
         private void entrarSala(TcpClient socket)
         {
             Sala.Mesa.Add(this);
-            Sala.Mesa.Juego.Jugadores.Append(this.Jugador);
         }
 
     }
