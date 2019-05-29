@@ -1,0 +1,11 @@
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\ADAutenticacion\bin\Debug\ADAutenticacion.dll
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\ADAutenticacion\bin\Debug\ADAutenticacion.pdb
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\ADAutenticacion\obj\Debug\ADAutenticacion.csproj.CoreCompileInputs.cache
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\ADAutenticacion\obj\Debug\ADAutenticacion.dll
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\ADAutenticacion\obj\Debug\ADAutenticacion.pdb
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Autenticacion\bin\Debug\ADAutenticacion.dll
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Autenticacion\bin\Debug\ADAutenticacion.pdb
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Autenticacion\obj\Debug\ADAutenticacion.csproj.CoreCompileInputs.cache
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Autenticacion\obj\Debug\ADAutenticacion.dll
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Autenticacion\obj\Debug\ADAutenticacion.pdb
+C:\Users\Andres\Documents\GitHub\Texas-Holdem-Poker\Autenticacion\obj\Debug\ADAutenticacion.csprojAssemblyReference.cache
