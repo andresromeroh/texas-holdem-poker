@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using ADAutenticacion;
 
 namespace Servidor
 {
@@ -25,7 +22,7 @@ namespace Servidor
             Writer = new StreamWriter(this.Socket.GetStream()); //Obtener stream de escritura
             Writer.AutoFlush = true;
 
-            Console.WriteLine("Nuevo jugador conectado!\n");
+            Console.WriteLine("Nuevo jugador conectando...\n");
 
             /* Inicia el hilo individual del jugador, para volver a escuchar en el puerto
              * por nuevos jugadores que desean unirse */
@@ -41,14 +38,23 @@ namespace Servidor
                 {
                     string json = Reader.ReadLine(); // json enviado desde el cliente
                     Jugador deserializedJugador = JsonConvert.DeserializeObject<Jugador>(json); // Esperado: Un objeto jugador en formato JSON
-                    Console.WriteLine("Nombre del jugador:" + deserializedJugador.NombreUsuario + "\n");
 
                     if (deserializedJugador != null) // Validar que no sea un jugador null
                     {
-                        Writer.WriteLine(JsonConvert.SerializeObject("true")); // Confirmacion al cliente de autenticacion exitosa
-                        Console.WriteLine("Los credenciales del jugador son correctos!\n");
-                        this.Jugador = deserializedJugador; // Set del jugador
-                        entrarSala(Socket); // Se entra a la sala
+                        if (Autenticacion.AutenticarUsuario(deserializedJugador.NombreUsuario, deserializedJugador.Password))
+                        {
+                            Writer.WriteLine(JsonConvert.SerializeObject("true")); // Confirmacion al cliente de autenticacion exitosa
+                            Console.WriteLine("Los credenciales del jugador son correctos!\n");
+                            Console.WriteLine("Nombre del jugador: " + deserializedJugador.NombreUsuario + "\n");
+                            this.Jugador = deserializedJugador; // Set del jugador
+                            entrarSala(Socket); // Se entra a la sala
+                        } else
+                        {
+                            Writer.WriteLine(JsonConvert.SerializeObject("false")); // Confirmacion al cliente de autenticacion exitosa
+                            Console.WriteLine("Los credenciales del jugador son incorrectos!\n");
+                            Disconnect(); // Desconectar el cliente en caso de credenciales incorrectos
+                        }
+
                     }
                     else
                     {

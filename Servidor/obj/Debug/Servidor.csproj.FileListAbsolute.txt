@@ -8,3 +8,5 @@ C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\obj\Debug\Servidor.pd
 C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\obj\Debug\Servidor.csproj.CopyComplete
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\ADAutenticacion.dll
+C:\Users\Administrator\Desktop\Texas-Holdem-Poker\Servidor\bin\Debug\ADAutenticacion.pdb

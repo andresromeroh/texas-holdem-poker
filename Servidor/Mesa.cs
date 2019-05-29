@@ -53,7 +53,7 @@ namespace Servidor
             //Informar a los demas jugadores luego de que un nuevo jugador se une
             //inform()
             
-            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar, pasar a 2 en produccion
             {
                 ThreadJuego = new Thread(Game);
                 ThreadJuego.Start();
@@ -61,7 +61,7 @@ namespace Servidor
             else
             {
                 Console.WriteLine("Esperando otro jugador, necesarios: 2\n");
-                Thread.Sleep(60000); // Esperar 2 minutos a que se una otro jugador
+                Thread.Sleep(120000); // Esperar 1 minutos a que se una otro jugador
                 if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)

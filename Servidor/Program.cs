@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Net;
+using ADAutenticacion;
 
 namespace Servidor
 {
@@ -12,10 +13,10 @@ namespace Servidor
             TcpClient clientSocket = null;
 
             serverSocket.Start();
-            Console.WriteLine("Servidor iniciado!\n");
-            
-
+            Autenticacion.Init();
             Sala.Init();
+
+            Console.WriteLine("Servidor iniciado!\n");
 
             while (true)
             {
