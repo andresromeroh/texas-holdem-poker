@@ -30,8 +30,6 @@ namespace Cliente
             ClienteTCP.Init(servidor, puerto);
             ClienteTCP.Write(json);
 
-            Thread.Sleep(5000);
-
             string jsonResponse = ClienteTCP.Read();
             bool loginExitoso = JsonConvert.DeserializeObject<bool>(jsonResponse);
             
@@ -52,6 +50,8 @@ namespace Cliente
 
                 //Muestra el mensaje
                 System.Windows.Forms.MessageBox.Show(message, caption, buttons);
+
+                ClienteTCP.Disconnect();
             }
         }
     }

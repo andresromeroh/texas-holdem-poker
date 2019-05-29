@@ -10,29 +10,14 @@ namespace Cliente.Services
         static TcpClient server = new TcpClient();
         static StreamWriter writer;
         static StreamReader reader;
-        //static string username;
-        //static string password;
-        //static int fichas;
 
         public static void Init(string servidor, Int32 puerto)
         {
-            server.Connect(IPAddress.Parse("3.14.121.156"), 11000);
+            server.Connect(IPAddress.Parse(servidor), puerto);
             writer = new StreamWriter(server.GetStream());
             writer.AutoFlush = true;
             reader = new StreamReader(server.GetStream());
         }
-
-        //public static string Username
-        //{
-        //    get { return username; }
-        //    set { username = value; }
-        //}
-
-        //public static int Fichas
-        //{
-        //    get { return fichas; }
-        //    set { fichas = value; }
-        //}
 
         public static void Write(string json)
         {
@@ -43,5 +28,14 @@ namespace Cliente.Services
         {
             return (reader.ReadLine());
         }
+
+        public static void Disconnect()
+        {
+            server.Close();
+            writer.Close();
+            reader.Close();
+            server = new TcpClient();
+        }
+
     }
 }
