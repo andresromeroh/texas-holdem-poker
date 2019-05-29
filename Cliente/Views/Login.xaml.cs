@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using Cliente.Services;
 using Newtonsoft.Json;
 
@@ -45,6 +46,12 @@ namespace Cliente
             else
             {
                 //Mostrar advertencia de credenciales incorrectos
+                string message = "Username or password is incorrect, please try again.";
+                string caption = "Error Detected in Credentials";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+                //Muestra el mensaje
+                System.Windows.Forms.MessageBox.Show(message, caption, buttons);
             }
         }
     }

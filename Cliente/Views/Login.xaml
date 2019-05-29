@@ -30,6 +30,6 @@
         <Label x:Name="corazon" Content="♥" HorizontalAlignment="Left" Margin="352,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
         <Label x:Name="trebol" Content="♣" HorizontalAlignment="Left" Margin="397,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FF060606" Height="47" Width="40"/>
         <Label x:Name="diamante" Content="♦" HorizontalAlignment="Left" Margin="442,40,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
-
     </Grid>
+    
 </Window>
