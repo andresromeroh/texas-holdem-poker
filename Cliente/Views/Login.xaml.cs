@@ -22,12 +22,12 @@ namespace Cliente
             string servidor = this.textBox_servidor.Text;
             Int32 puerto = Int32.Parse(this.textBox_puerto.Text);
             string username = this.textBox_username.Text;
-            string password = this.textBox_password.Text;
+            string password = this.textBox_password.Password;
 
             Jugador jugador = new Jugador(username, password, 10000, true);
             string json = JsonConvert.SerializeObject(jugador);
 
-            ClienteTCP.Init(servidor, puerto);
+            ClienteTCP.Init(servidor, puerto, username);
             ClienteTCP.Write(json);
 
             string jsonResponse = ClienteTCP.Read();

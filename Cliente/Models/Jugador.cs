@@ -44,6 +44,7 @@ namespace Cliente
         // Constructor que no toma argumentos:
         public Jugador()
         {
+            Mano = new Carta[2];
         }
 
         // Constructor que toma argumentos:
@@ -53,6 +54,7 @@ namespace Cliente
             Password = password;
             CantFichas = cantFichas;
             Activo = activo;
+            Mano = new Carta[2];
         }
 
     }

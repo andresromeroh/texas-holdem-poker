@@ -11,10 +11,10 @@ namespace Cliente
     public class Carta
     {
         [JsonProperty]
-        string Leyenda { get; set; }
+        public string Leyenda;
 
         [JsonProperty]
-        int TipoPalo { get; set; }
+        public int TipoPalo;
 
         public static int ESPADAS = 0;
         public static int CORAZONES = 1;

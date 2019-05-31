@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cliente.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,15 @@ namespace Cliente
     /// </summary>
     public partial class Mesa : Window
     {
+        private readonly ViewModel ViewModel;
+
         public Mesa()
         {
             InitializeComponent();
+            ViewModel = new ViewModel();
+            // The DataContext serves as the starting point of Binding Paths
+            DataContext = ViewModel;
+            ViewModel.ObtenerMano(ClienteTCP.Name());
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
