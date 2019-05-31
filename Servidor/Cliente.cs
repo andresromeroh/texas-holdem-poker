@@ -14,6 +14,7 @@ namespace Servidor
         public StreamReader Reader;
         public StreamWriter Writer;
         public Jugador Jugador = null;
+        public static int num = 0;
 
         public Cliente(TcpClient Socket)
         {

@@ -54,6 +54,7 @@ namespace Servidor
             Password = password;
             CantFichas = cantFichas;
             Activo = activo;
+            Mano = new Carta[2];
         }
 
     }

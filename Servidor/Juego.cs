@@ -96,6 +96,15 @@ namespace Servidor
             }
         }
 
+        public void Repartir()
+        {
+            foreach (Jugador jugador in Jugadores)
+            {
+                jugador.Mano[0] = Mazo.Pop();
+                jugador.Mano[1] = Mazo.Pop();
+            }
+        }
+
         public void Showdown()
         {
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,13 +48,13 @@ namespace Servidor
         public void Add(Cliente cliente)
         {
             ClientesJugador.Add(cliente);
-            cliente.Jugador.NumJugador = FindNextSeat();
+            cliente.Jugador.NumJugador = FindNextSeat() - 1;
             Juego.Jugadores.Add(cliente.Jugador);
 
             //Informar a los demas jugadores luego de que un nuevo jugador se une
             //inform()
             
-            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar, pasar a 2 en produccion
+            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar, pasar a 2 en produccion
             {
                 ThreadJuego = new Thread(Game);
                 ThreadJuego.Start();
@@ -102,6 +103,8 @@ namespace Servidor
         public void Game()
         {
             Console.WriteLine("JUEGO INICIADO!!!\n");
+            Juego.Repartir();
+            Inform(JsonConvert.SerializeObject(Juego));
         }
 
         public void Inform(string json)

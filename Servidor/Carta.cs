@@ -11,10 +11,10 @@ namespace Servidor
     public class Carta
     {
         [JsonProperty]
-        string Leyenda { get; set; }
+        public string Leyenda { get; set; }
 
         [JsonProperty]
-        int TipoPalo { get; set; }
+        public int TipoPalo { get; set; }
 
         public static int ESPADAS = 0;
         public static int CORAZONES = 1;
