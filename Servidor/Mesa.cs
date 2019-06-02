@@ -1,31 +1,34 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Servidor
 {
     class Mesa
     {
-        public int Size;
+        public int Size; // Tamanno de la mesa
         public Juego Juego = null; // Objeto principal a serializar como respuesta continua
-        public Thread ThreadJuego;
+        public Thread ThreadJuego; // Thread de inicio de la partida
         public List<Cliente> ClientesJugador; // Lista de clientes actualmente conectados
+        public int turno; // Num de turno
 
         public Mesa(int size, int apuestaMinima, int apuestaAlta)
         {
-            this.Size = size; // Definir el tamanno de la mesa
+            Size = size;
             ClientesJugador = new List<Cliente>();
-            Juego = new Juego();
-            Juego.ApuestaMinima = apuestaMinima; // Definir la apuesta minima
-            Juego.ApuestaAlta = apuestaAlta; // Definir la apuesta alta
-            Juego.Bote = apuestaAlta + apuestaMinima;
+
+            Juego = new Juego
+            {
+                ApuestaMinima = apuestaMinima, // Definir la apuesta minima
+                ApuestaAlta = apuestaAlta, // Definir la apuesta alta
+                Bote = apuestaAlta + apuestaMinima // Definir el bote inicial
+            };
+
+            turno = 1;
         }
 
-        public int FindNextSeat()
+        public int AsignarAsiento() // Funcion para asignar asiento a un jugador
         {
             for (int i = 0; i < Size; i++)
             {
@@ -50,31 +53,30 @@ namespace Servidor
         public void Add(Cliente cliente)
         {
             ClientesJugador.Add(cliente);
-            cliente.Jugador.NumJugador = FindNextSeat() - 1;
             Juego.Jugadores.Add(cliente.Jugador);
 
-            //Informar a los demas jugadores luego de que un nuevo jugador se une
-            //inform()
+            cliente.Jugador.NumJugador = AsignarAsiento();
+            cliente.Jugador.Role = Jugador.REGULAR;
             
-            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar, pasar a 2 en produccion
+            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
             {
-                ThreadJuego = new Thread(Game);
+                ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
             }
             else
             {
                 Console.WriteLine("Esperando otro jugador, necesarios: 2\n");
-                Thread.Sleep(120000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+                Thread.Sleep(60000); // Esperar 1 minutos a que se una otro jugador
+                if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
-                        ThreadJuego = new Thread(Game);
+                        ThreadJuego = new Thread(IniciarJuego);
                         ThreadJuego.Start();
                     }
                     else if (!ThreadJuego.IsAlive)
                     {
-                        ThreadJuego = new Thread(Game);
+                        ThreadJuego = new Thread(IniciarJuego);
                         ThreadJuego.Start();
                     }
                 }
@@ -82,12 +84,6 @@ namespace Servidor
                 {
                     Console.WriteLine("Desconectando...\n");
                     cliente.Disconnect();
-                    /*
-                    if (cliente.Pocket[0].Value != 0)
-                    {
-                        deck.Add(cliente.Pocket);
-                    }
-                    */
                     Remove(cliente);
                 }
             }
@@ -96,18 +92,73 @@ namespace Servidor
         public void Remove(Cliente cliente)
         {
             ClientesJugador.Remove(cliente);
-            //Inform() informar que un jugador ha sido removido
+            Juego.Jugadores.Remove(cliente.Jugador);
+
+            Inform(JsonConvert.SerializeObject(Juego)); // Informar que un jugador ha sido removido
+
             if (Juego != null)
+            {
                 if (ThreadJuego.IsAlive && ClientesJugador.Count < 2)
+                {
                     ThreadJuego.Abort();
+                }
+            }
         }
 
-        public void Game()
+        public void IniciarJuego()
         {
-            Console.WriteLine("JUEGO INICIADO!!!\n");
-            Juego.Repartir();
-            Inform(JsonConvert.SerializeObject(Juego));
-            Console.WriteLine("Juego Actual: \n" + JsonConvert.SerializeObject(Juego));
+            Console.WriteLine("JUEGO INICIADO!\n");
+
+            while (true)
+            {
+                Juego.Repartir();
+                Inform(JsonConvert.SerializeObject(Juego));
+                RondaFlow();
+                RondaTurn();
+                RondaRiver();
+            }
+        }
+
+        public void RondaFlow()
+        {
+            foreach (Cliente cliente in ClientesJugador)
+            {
+                if (cliente.Jugador.NumJugador == turno)
+                {
+                    Console.WriteLine("Waiting for data from player " + cliente.Jugador.NombreUsuario);
+                    Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
+                    Juego.Flop();
+                    Inform(JsonConvert.SerializeObject(Juego));
+                }
+            }
+        }
+
+        public void RondaTurn()
+        {
+            foreach (Cliente cliente in ClientesJugador)
+            {
+                if (cliente.Jugador.NumJugador == turno)
+                {
+                    Console.WriteLine("Waiting for data from player " + cliente.Jugador.NombreUsuario);
+                    Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
+                    Juego.Turn();
+                    Inform(JsonConvert.SerializeObject(Juego));
+                }
+            }
+        }
+
+        public void RondaRiver()
+        {
+            foreach (Cliente cliente in ClientesJugador)
+            {
+                if (cliente.Jugador.NumJugador == turno)
+                {
+                    Console.WriteLine("Waiting for data from player " + cliente.Jugador.NombreUsuario);
+                    Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
+                    Juego.River();
+                    Inform(JsonConvert.SerializeObject(Juego));
+                }
+            }
         }
 
         public void Inform(string json)

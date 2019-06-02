@@ -14,7 +14,6 @@ namespace Servidor
         public StreamReader Reader;
         public StreamWriter Writer;
         public Jugador Jugador = null;
-        public static int num = 0;
 
         public Cliente(TcpClient Socket)
         {
@@ -23,7 +22,7 @@ namespace Servidor
             Writer = new StreamWriter(this.Socket.GetStream()); //Obtener stream de escritura
             Writer.AutoFlush = true;
 
-            Console.WriteLine("Nuevo jugador conectando...\n");
+            Console.WriteLine("Nuevo jugador conectado...\n");
 
             /* Inicia el hilo individual del jugador, para volver a escuchar en el puerto
              * por nuevos jugadores que desean unirse */

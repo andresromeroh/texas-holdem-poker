@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Servidor;
 
 namespace Servidor
 {
@@ -15,7 +11,7 @@ namespace Servidor
         public Stack<Carta> Mazo { get; set; }
 
         [JsonProperty]
-        public List<Carta> Mesa { get; set; }
+        public List<Carta> CartasComunes { get; set; }
 
         [JsonProperty]
         public List<Jugador> Jugadores { get; set; }
@@ -32,7 +28,7 @@ namespace Servidor
         public Juego()
         {
             LlenarMazo();
-            Mesa = new List<Carta>();
+            CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
         }
 
@@ -71,29 +67,17 @@ namespace Servidor
         public void Flop()
         {
             for (int i = 0; i < 3; i++)
-                Mesa[i] = Mazo.Pop();
+                CartasComunes.Add(Mazo.Pop());
         }
 
         public void River()
         {
-            for (int i = 0; i < Mesa.Count; i++)
-            {
-                if (Mesa[i] == null)
-                {
-                    Mesa[i] = Mazo.Pop();
-                }
-            }
+            CartasComunes.Add(Mazo.Pop());
         }
 
         public void Turn()
         {
-            for (int i = 0; i < Mesa.Count; i++)
-            {
-                if (Mesa[i] == null)
-                {
-                    Mesa[i] = Mazo.Pop();
-                }
-            }
+            CartasComunes.Add(Mazo.Pop());
         }
 
         public void Repartir()
@@ -103,40 +87,6 @@ namespace Servidor
                 jugador.Mano[0] = Mazo.Pop();
                 jugador.Mano[1] = Mazo.Pop();
             }
-        }
-
-        public void Showdown()
-        {
-
-        }
-
-        public void EarlyWin()
-        {
-
-        }
-
-        public void PlayerMove(Cliente cliente)
-        {
-
-        }
-
-        public void Collect()
-        {
-
-        }
-
-        public void Deal()
-        {
-            foreach (Jugador jugador in Jugadores)
-            {
-                jugador.Mano = repartirJugador();
-                //jugador.Writer.WriteLine("Pocket$0$" + jugador.Pocket[0]); Enviar las cartas solo al jugador correspondiente
-            }
-        }
-
-        public Carta[] repartirJugador()
-        {
-            return null; //Aqui se requiere repartir 2 cartas del top del mazo
         }
 
     }
