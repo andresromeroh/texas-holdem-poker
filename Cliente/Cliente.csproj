@@ -34,9 +34,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Cliente.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +62,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Models\Juego.cs" />
+    <Compile Include="Services\ClienteTCP.cs" />
+    <Compile Include="Tests\Test.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Mesa.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,9 +78,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Carta.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Models\Carta.cs" />
+    <Compile Include="Models\Jugador.cs" />
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Mesa.xaml.cs">
+      <DependentUpon>Mesa.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -87,6 +106,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,6 +114,73 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Cards\010.png" />
+    <Resource Include="Resources\Images\Cards\02.png" />
+    <Resource Include="Resources\Images\Cards\03.png" />
+    <Resource Include="Resources\Images\Cards\04.png" />
+    <Resource Include="Resources\Images\Cards\05.png" />
+    <Resource Include="Resources\Images\Cards\06.png" />
+    <Resource Include="Resources\Images\Cards\07.png" />
+    <Resource Include="Resources\Images\Cards\08.png" />
+    <Resource Include="Resources\Images\Cards\09.png" />
+    <Resource Include="Resources\Images\Cards\0A.png" />
+    <Resource Include="Resources\Images\Cards\0J.png" />
+    <Resource Include="Resources\Images\Cards\0K.png" />
+    <Resource Include="Resources\Images\Cards\0Q.png" />
+    <Resource Include="Resources\Images\Cards\110.png" />
+    <Resource Include="Resources\Images\Cards\12.png" />
+    <Resource Include="Resources\Images\Cards\13.png" />
+    <Resource Include="Resources\Images\Cards\14.png" />
+    <Resource Include="Resources\Images\Cards\15.png" />
+    <Resource Include="Resources\Images\Cards\16.png" />
+    <Resource Include="Resources\Images\Cards\17.png" />
+    <Resource Include="Resources\Images\Cards\18.png" />
+    <Resource Include="Resources\Images\Cards\19.png" />
+    <Resource Include="Resources\Images\Cards\1A.png" />
+    <Resource Include="Resources\Images\Cards\1J.png" />
+    <Resource Include="Resources\Images\Cards\1K.png" />
+    <Resource Include="Resources\Images\Cards\1Q.png" />
+    <Resource Include="Resources\Images\Cards\210.png" />
+    <Resource Include="Resources\Images\Cards\22.png" />
+    <Resource Include="Resources\Images\Cards\23.png" />
+    <Resource Include="Resources\Images\Cards\24.png" />
+    <Resource Include="Resources\Images\Cards\25.png" />
+    <Resource Include="Resources\Images\Cards\26.png" />
+    <Resource Include="Resources\Images\Cards\27.png" />
+    <Resource Include="Resources\Images\Cards\28.png" />
+    <Resource Include="Resources\Images\Cards\29.png" />
+    <Resource Include="Resources\Images\Cards\2A.png" />
+    <Resource Include="Resources\Images\Cards\2J.png" />
+    <Resource Include="Resources\Images\Cards\2K.png" />
+    <Resource Include="Resources\Images\Cards\2Q.png" />
+    <Resource Include="Resources\Images\Cards\310.png" />
+    <Resource Include="Resources\Images\Cards\32.png" />
+    <Resource Include="Resources\Images\Cards\33.png" />
+    <Resource Include="Resources\Images\Cards\34.png" />
+    <Resource Include="Resources\Images\Cards\35.png" />
+    <Resource Include="Resources\Images\Cards\36.png" />
+    <Resource Include="Resources\Images\Cards\37.png" />
+    <Resource Include="Resources\Images\Cards\38.png" />
+    <Resource Include="Resources\Images\Cards\39.png" />
+    <Resource Include="Resources\Images\Cards\3A.png" />
+    <Resource Include="Resources\Images\Cards\3J.png" />
+    <Resource Include="Resources\Images\Cards\3K.png" />
+    <Resource Include="Resources\Images\Cards\3Q.png" />
+    <Resource Include="Resources\Images\Cards\aces.png" />
+    <Resource Include="Resources\Images\Cards\back_cards-07.png" />
+    <Resource Include="Resources\Images\Cards\blue_back.png" />
+    <Resource Include="Resources\Images\Cards\gray_back.png" />
+    <Resource Include="Resources\Images\Cards\green_back.png" />
+    <Resource Include="Resources\Images\Cards\honors_spade-14.png" />
+    <Resource Include="Resources\Images\Cards\honor_clubs.png" />
+    <Resource Include="Resources\Images\Cards\honor_diamond.png" />
+    <Resource Include="Resources\Images\Cards\honor_heart-14.png" />
+    <Resource Include="Resources\Images\Cards\purple_back.png" />
+    <Resource Include="Resources\Images\Cards\README.txt" />
+    <Resource Include="Resources\Images\Cards\red_back.png" />
+    <Resource Include="Resources\Images\Cards\yellow_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
