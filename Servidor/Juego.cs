@@ -12,22 +12,22 @@ namespace Servidor
     public class Juego
     {
         [JsonProperty]
-        public Stack<Carta> Mazo;
+        public Stack<Carta> Mazo { get; set; }
 
         [JsonProperty]
-        public List<Carta> Mesa;
+        public List<Carta> Mesa { get; set; }
 
         [JsonProperty]
-        public List<Jugador> Jugadores;
+        public List<Jugador> Jugadores { get; set; }
 
         [JsonProperty]
-        public int ApuestaAlta;
+        public int ApuestaAlta { get; set; }
 
         [JsonProperty]
-        public int ApuestaMinima;
+        public int ApuestaMinima { get; set; }
 
         [JsonProperty]
-        public int ApuestaTotal;
+        public int Bote { get; set; }
 
         public Juego()
         {

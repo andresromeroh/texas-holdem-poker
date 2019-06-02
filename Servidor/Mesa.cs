@@ -15,12 +15,14 @@ namespace Servidor
         public Thread ThreadJuego;
         public List<Cliente> ClientesJugador; // Lista de clientes actualmente conectados
 
-        public Mesa(int size, int apuestaMinima)
+        public Mesa(int size, int apuestaMinima, int apuestaAlta)
         {
             this.Size = size; // Definir el tamanno de la mesa
             ClientesJugador = new List<Cliente>();
             Juego = new Juego();
             Juego.ApuestaMinima = apuestaMinima; // Definir la apuesta minima
+            Juego.ApuestaAlta = apuestaAlta; // Definir la apuesta alta
+            Juego.Bote = apuestaAlta + apuestaMinima;
         }
 
         public int FindNextSeat()
@@ -54,7 +56,7 @@ namespace Servidor
             //Informar a los demas jugadores luego de que un nuevo jugador se une
             //inform()
             
-            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar, pasar a 2 en produccion
+            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar, pasar a 2 en produccion
             {
                 ThreadJuego = new Thread(Game);
                 ThreadJuego.Start();
@@ -105,6 +107,7 @@ namespace Servidor
             Console.WriteLine("JUEGO INICIADO!!!\n");
             Juego.Repartir();
             Inform(JsonConvert.SerializeObject(Juego));
+            Console.WriteLine("Juego Actual: \n" + JsonConvert.SerializeObject(Juego));
         }
 
         public void Inform(string json)

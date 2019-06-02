@@ -11,7 +11,7 @@ namespace Servidor
         public static Mesa Mesa = null;
         public static void Init()
         {
-            Mesa = new Mesa(4, 100); // Mesa de 4 jugadores con apuesta minima de $100
+            Mesa = new Mesa(4, 50, 100); // Mesa de 4 jugadores con apuesta minima de $100
         }
     }
 }
