@@ -14,7 +14,7 @@ namespace Cliente
     class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Juego Juego;
+        public Juego Juego { get; set; }
         public string Carta1 { get; set; }
         public string Carta2 { get; set; }
 
@@ -30,6 +30,8 @@ namespace Cliente
         public ViewModel()
         {
             Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
+            OnPropertyChange("Juego.ApuestaMinima");
+            
         }
 
         public void ObtenerMano(string nombre)
@@ -44,6 +46,11 @@ namespace Cliente
                     OnPropertyChange("Carta2");
                 }
             }
+        }
+
+        public void ObtenerApuestaMinima()
+        {
+
         }
 
     }
