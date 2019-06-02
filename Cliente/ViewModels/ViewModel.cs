@@ -17,6 +17,13 @@ namespace Cliente
         public Juego Juego { get; set; }
         public string Carta1 { get; set; }
         public string Carta2 { get; set; }
+        public string CartaFlop1 { get; set; }
+        public string CartaFlop2 { get; set; }
+        public string CartaFlop3 { get; set; }
+        public string CartaTurn { get; set; }
+        public string CartaRiver { get; set; }
+
+        public int Ronda = 1;
 
         protected void OnPropertyChange(string propertyName)
         {
@@ -30,8 +37,12 @@ namespace Cliente
         public ViewModel()
         {
             Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
-            OnPropertyChange("Juego.ApuestaMinima");
-            
+            OnPropertyChange("Juego");
+        }
+
+        public List<Jugador> ObtenerJugadores()
+        {
+            return Juego.Jugadores;
         }
 
         public void ObtenerMano(string nombre)
@@ -48,9 +59,53 @@ namespace Cliente
             }
         }
 
-        public void ObtenerApuestaMinima()
+        public void ObtenerFlop()
         {
+            CartaFlop1 = "/Resources/Images/Cards/" + Juego.CartasComunes[0].TipoPalo + Juego.CartasComunes[0].Leyenda + ".png";
+            CartaFlop2 = "/Resources/Images/Cards/" + Juego.CartasComunes[1].TipoPalo + Juego.CartasComunes[1].Leyenda + ".png";
+            CartaFlop3 = "/Resources/Images/Cards/" + Juego.CartasComunes[2].TipoPalo + Juego.CartasComunes[2].Leyenda + ".png";
+            OnPropertyChange("CartaFlop1");
+            OnPropertyChange("CartaFlop2");
+            OnPropertyChange("CartaFlop3");
+        }
 
+        public void ObtenerTurn()
+        {
+            CartaTurn = "/Resources/Images/Cards/" + Juego.CartasComunes[3].TipoPalo + Juego.CartasComunes[3].Leyenda + ".png";
+            OnPropertyChange("CartaTurn");
+        }
+
+        public void ObtenerRiver()
+        {
+            CartaRiver = "/Resources/Images/Cards/" + Juego.CartasComunes[4].TipoPalo + Juego.CartasComunes[4].Leyenda + ".png";
+            OnPropertyChange("CartaRiver");
+        }
+
+        public void Actualizar()
+        {
+            Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
+            OnPropertyChange("Juego");
+
+            switch (this.Ronda)
+            {
+                case 1:
+                    ObtenerFlop();
+                    Ronda++;
+                    break;
+
+                case 2:
+                    ObtenerTurn();
+                    Ronda++;
+                    break;
+
+                case 3:
+                    ObtenerRiver();
+                    Ronda = 1;
+                    break;
+
+                default:
+                    break;
+            }
         }
 
     }

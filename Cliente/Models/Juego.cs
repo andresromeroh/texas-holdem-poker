@@ -10,7 +10,7 @@ namespace Cliente.Models
         public Stack<Carta> Mazo { get; set; }
 
         [JsonProperty]
-        public List<Carta> Mesa { get; set; }
+        public List<Carta> CartasComunes { get; set; }
 
         [JsonProperty]
         public List<Jugador> Jugadores { get; set; }
@@ -27,7 +27,7 @@ namespace Cliente.Models
         public Juego()
         {
             Mazo = new Stack<Carta>();
-            Mesa = new List<Carta>();
+            CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
         }
 

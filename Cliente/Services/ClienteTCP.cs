@@ -31,6 +31,16 @@ namespace Cliente.Services
             return (reader.ReadLine());
         }
 
+        public static bool messagePending()
+        {
+            if (reader.Peek() != -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static string Name()
         {
             return name;
