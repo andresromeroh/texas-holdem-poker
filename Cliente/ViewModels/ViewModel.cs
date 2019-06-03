@@ -15,6 +15,7 @@ namespace Cliente
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public Juego Juego { get; set; }
+        public Jugador Jugador { get; set; }
         public string Carta1 { get; set; }
         public string Carta2 { get; set; }
         public string CartaFlop1 { get; set; }
@@ -23,11 +24,8 @@ namespace Cliente
         public string CartaTurn { get; set; }
         public string CartaRiver { get; set; }
 
-        public int Ronda = 1;
-
         protected void OnPropertyChange(string propertyName)
         {
-            Console.WriteLine("PROPERTY CHANGED()\n");
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -45,18 +43,24 @@ namespace Cliente
             return Juego.Jugadores;
         }
 
-        public void ObtenerMano(string nombre)
+        public void ActualizarInfoJugador()
         {
             foreach (Jugador jugador in Juego.Jugadores)
             {
                 if (jugador.NombreUsuario.Equals(ClienteTCP.Name()))
                 {
-                    Carta1 = "/Resources/Images/Cards/" + jugador.Mano[0].TipoPalo + jugador.Mano[0].Leyenda + ".png";
-                    Carta2 = "/Resources/Images/Cards/" + jugador.Mano[1].TipoPalo + jugador.Mano[1].Leyenda + ".png";
-                    OnPropertyChange("Carta1");
-                    OnPropertyChange("Carta2");
+                    Jugador = jugador;
+                    OnPropertyChange("Jugador");
                 }
             }
+        }
+
+        public void ObtenerMano(string nombre)
+        {
+            Carta1 = "/Resources/Images/Cards/" + Jugador.Mano[0].TipoPalo + Jugador.Mano[0].Leyenda + ".png";
+            Carta2 = "/Resources/Images/Cards/" + Jugador.Mano[1].TipoPalo + Jugador.Mano[1].Leyenda + ".png";
+            OnPropertyChange("Carta1");
+            OnPropertyChange("Carta2");
         }
 
         public void ObtenerFlop()
@@ -81,26 +85,31 @@ namespace Cliente
             OnPropertyChange("CartaRiver");
         }
 
+        public void Call()
+        {
+            Jugador.ApuestaActual += Juego.ApuestaMinima;
+            Jugador.CantFichas -= Jugador.ApuestaActual;
+            Juego.Bote += Jugador.ApuestaActual;
+        }
+
         public void Actualizar()
         {
+            Console.WriteLine("Actualizando");
             Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
             OnPropertyChange("Juego");
 
-            switch (this.Ronda)
+            switch (Juego.Ronda)
             {
                 case 1:
                     ObtenerFlop();
-                    Ronda++;
                     break;
 
                 case 2:
                     ObtenerTurn();
-                    Ronda++;
                     break;
 
                 case 3:
                     ObtenerRiver();
-                    Ronda = 1;
                     break;
 
                 default:

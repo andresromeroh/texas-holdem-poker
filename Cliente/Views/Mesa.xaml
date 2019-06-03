@@ -35,10 +35,10 @@
         <Label x:Name="labelApuestaMinimaCant" Content="{Binding Juego.ApuestaMinima, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="995,38,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
         <Label x:Name="labelApuestaAlta" Content="Apuesta Alta: " HorizontalAlignment="Left" Margin="436,38,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
         <Label x:Name="labelApuestaAltaCant" Content="{Binding Juego.ApuestaAlta, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="598,38,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
-        <Label x:Name="labelManoJugador_Copy" Content="Cant. Fichas:" HorizontalAlignment="Left" Margin="873,490,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="#FFFDF9F9"/>
-        <Label x:Name="labelApuestaAlta_Copy" Content="10000" HorizontalAlignment="Left" Margin="1002,490,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
-        <Label x:Name="labelManoJugador_Copy1" Content="En Apuesta:" HorizontalAlignment="Left" Margin="873,519,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="White"/>
-        <Label x:Name="labelApuestaAlta_Copy1" Content="10000" HorizontalAlignment="Left" Margin="1002,519,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
+        <Label x:Name="labelInfoJugadorCantFichas" Content="Cant. Fichas:" HorizontalAlignment="Left" Margin="873,490,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="#FFFDF9F9"/>
+        <Label x:Name="labelInfoJugadorCantFichasTotal" Content="{Binding Jugador.CantFichas, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1002,490,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
+        <Label x:Name="labelInfoJugadorCantApuesta" Content="En Apuesta:" HorizontalAlignment="Left" Margin="873,519,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="White"/>
+        <Label x:Name="labelInfoJugadorCantApuestaTotal" Content="{Binding Jugador.ApuestaActual, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1002,519,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="854,491,0,0" VerticalAlignment="Top" Width="237"/>
         <Label x:Name="labelManoJugador_Copy2" Content="Info:" HorizontalAlignment="Left" Margin="854,445,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
 
