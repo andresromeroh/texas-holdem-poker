@@ -25,11 +25,15 @@ namespace Servidor
         [JsonProperty]
         public int Bote { get; set; }
 
+        [JsonProperty]
+        public int Ronda { get; set; }
+
         public Juego()
         {
             LlenarMazo();
             CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
+            Ronda = 0;
         }
 
         void LlenarMazo()
@@ -67,17 +71,23 @@ namespace Servidor
         public void Flop()
         {
             for (int i = 0; i < 3; i++)
+            {
                 CartasComunes.Add(Mazo.Pop());
-        }
+            }
 
-        public void River()
-        {
-            CartasComunes.Add(Mazo.Pop());
+            Ronda = 1;
         }
 
         public void Turn()
         {
             CartasComunes.Add(Mazo.Pop());
+            Ronda = 2;
+        }
+
+        public void River()
+        {
+            CartasComunes.Add(Mazo.Pop());
+            Ronda = 3;
         }
 
         public void Repartir()
