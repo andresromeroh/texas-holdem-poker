@@ -99,5 +99,59 @@ namespace Servidor
             }
         }
 
+        public void definirApuestas() // Define los jugadores con apuestas y hace su resta
+        {
+            definirJugadorApuestaBaja();
+            definirJugadorApuestaAlta();
+        }
+
+       public void definirJugadorApuestaBaja()
+        {
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                if (Jugadores[i].Role.Equals(Jugador.APUESTA_BAJA))
+                {
+                    Jugadores[i].Role = Jugador.REGULAR;
+
+                    if (i == (Jugadores.Count - 1)) // Si es el ultimo
+                    {
+                        Jugadores[0].Role = Jugador.APUESTA_BAJA;
+                        Jugadores[0].ApuestaActual = ApuestaMinima;
+                        Jugadores[0].CantFichas -= ApuestaMinima;
+                    }
+                }
+
+                break;
+            }
+        }
+
+        public void definirJugadorApuestaAlta()
+        {
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                if (Jugadores[i].Role.Equals(Jugador.APUESTA_BAJA))
+                {  
+                    if (i == (Jugadores.Count - 1)) // Si es el ultimo
+                    {
+                        Jugadores[0].Role = Jugador.APUESTA_ALTA;
+                        Jugadores[0].ApuestaActual = ApuestaAlta;
+                        Jugadores[0].CantFichas -= ApuestaAlta;
+                    }
+                    else
+                    {
+                        Jugadores[i + 1].Role = Jugador.APUESTA_ALTA;
+                        Jugadores[0].ApuestaActual = ApuestaAlta;
+                        Jugadores[0].CantFichas -= ApuestaAlta;
+                    }
+                }
+
+                break;
+            }
+        }
+
+        public int analizarMano() {
+            
+            return 0;
+        }
     }
 }

@@ -11,7 +11,6 @@ namespace Servidor
         public Juego Juego = null; // Objeto principal a serializar como respuesta continua
         public Thread ThreadJuego; // Thread de inicio de la partida
         public List<Cliente> ClientesJugador; // Lista de clientes actualmente conectados
-        public int turno; // Num de turno
 
         public Mesa(int size, int apuestaMinima, int apuestaAlta)
         {
@@ -24,8 +23,6 @@ namespace Servidor
                 ApuestaAlta = apuestaAlta, // Definir la apuesta alta
                 Bote = apuestaAlta + apuestaMinima // Definir el bote inicial
             };
-
-            turno = 1;
         }
 
         public int AsignarAsiento() // Funcion para asignar asiento a un jugador
@@ -56,11 +53,28 @@ namespace Servidor
             Juego.Jugadores.Add(cliente.Jugador);
 
             cliente.Jugador.NumJugador = AsignarAsiento();
-            cliente.Jugador.Role = Jugador.REGULAR;
-            cliente.Jugador.ApuestaActual = 0;
-            cliente.Jugador.Estado = Jugador.ESPERANDO;
+
+            switch (cliente.Jugador.NumJugador) // Definir las apuestas iniciales
+            {
+                case 1:
+                    cliente.Jugador.Role = Jugador.APUESTA_BAJA;
+                    cliente.Jugador.ApuestaActual = Juego.ApuestaMinima;
+                    cliente.Jugador.CantFichas -= Juego.ApuestaMinima;
+                    break;
+
+                case 2:
+                    cliente.Jugador.Role = Jugador.APUESTA_ALTA;
+                    cliente.Jugador.ApuestaActual = Juego.ApuestaAlta;
+                    cliente.Jugador.CantFichas -= Juego.ApuestaAlta;
+                    break;
+
+                default:
+                    cliente.Jugador.Role = Jugador.REGULAR;
+                    cliente.Jugador.ApuestaActual = 0;
+                    break;
+            }
             
-            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
@@ -68,8 +82,8 @@ namespace Servidor
             else
             {
                 Console.WriteLine("Esperando otro jugador, necesarios: 2\n");
-                Thread.Sleep(60000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+                Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
+                if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
