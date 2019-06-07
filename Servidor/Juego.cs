@@ -99,5 +99,61 @@ namespace Servidor
             }
         }
 
+        public void analizarMano() {
+            foreach (Jugador jugador in Jugadores) {
+                cartaAlta(jugador);
+                par(jugador);
+                doblePar(jugador);
+                trio(jugador);
+                escalera(jugador);
+                color(jugador);
+                fullHouse(jugador);
+                poker(jugador);
+                escaleraDeColor(jugador);
+                escaleraReal(jugador);
+            }
+        }
+        /// Estefany
+        public void cartaAlta(Jugador jugador) {
+            jugador.PuntajeMano = 1;
+        }
+        public void par(Jugador jugador)
+        {
+            jugador.PuntajeMano = 2;
+        }
+        public void doblePar(Jugador jugador)
+        {
+            jugador.PuntajeMano = 3;
+        }
+        public void trio(Jugador jugador)
+        {
+            jugador.PuntajeMano = 4;
+        }
+        public void escalera(Jugador jugador)
+        {
+            jugador.PuntajeMano = 5;
+        }
+
+        ///Ariel
+        public void color(Jugador jugador)
+        {
+            jugador.PuntajeMano = 6;
+        }
+        public void fullHouse(Jugador jugador)
+        {
+            jugador.PuntajeMano = 7;
+        }
+        public void poker(Jugador jugador)
+        {
+            jugador.PuntajeMano = 8;
+        }
+        public void escaleraDeColor(Jugador jugador)
+        {
+            jugador.PuntajeMano = 9;
+        }
+        public void escaleraReal(Jugador jugador)
+        {
+            jugador.PuntajeMano = 10;
+        }
     }
 }

@@ -37,6 +37,9 @@ namespace Servidor
         [JsonProperty]
         public bool Activo { get; set; }
 
+        [JsonProperty]
+        public int PuntajeMano { get; set; }
+
         // Tipos de estados:
         public static string ESPERANDO = "ESPERANDO";
         public static string JUGANDO = "JUGANDO";
