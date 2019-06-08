@@ -2,12 +2,8 @@
 using Cliente.Services;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cliente
 {
@@ -34,8 +30,7 @@ namespace Cliente
 
         public ViewModel()
         {
-            Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
-            OnPropertyChange("Juego");
+            // Constructor
         }
 
         public List<Jugador> ObtenerJugadores()
@@ -111,10 +106,28 @@ namespace Cliente
         public void RegularCall()
         {
             int max = ObtenerApuestaMax();
+            int diferencia = 0;
 
-            Jugador.ApuestaActual += (max - Jugador.ApuestaActual);
-            Jugador.CantFichas -= (max - Jugador.ApuestaActual);
-            Juego.Bote += (max - Jugador.ApuestaActual);
+            if (max == Jugador.ApuestaActual)
+            {
+                Jugador.ApuestaActual += 100;
+                Jugador.CantFichas -= 100;
+                Juego.Bote += 100;
+            }
+            else
+            {
+                if (max > Jugador.ApuestaActual)
+                {
+                    diferencia = (max - Jugador.ApuestaActual);
+                    Jugador.ApuestaActual += diferencia;
+                    Jugador.CantFichas = Jugador.CantFichas - diferencia;
+                    Juego.Bote += diferencia;
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
 
         public void Raise(int cantApuesta)
@@ -141,21 +154,26 @@ namespace Cliente
 
         public void Actualizar()
         {
-            Console.WriteLine("Actualizando");
+            Console.WriteLine("Actualizando juego...");
             Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
             OnPropertyChange("Juego");
 
             switch (Juego.Ronda)
             {
                 case 1:
-                    ObtenerFlop();
+                    ActualizarInfoJugador();
+                    ObtenerMano(ClienteTCP.Name());
                     break;
 
                 case 2:
-                    ObtenerTurn();
+                    ObtenerFlop();
                     break;
 
                 case 3:
+                    ObtenerTurn();
+                    break;
+
+                case 4:
                     ObtenerRiver();
                     break;
 

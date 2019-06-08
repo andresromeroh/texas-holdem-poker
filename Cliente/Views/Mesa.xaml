@@ -5,42 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cliente"
         mc:Ignorable="d"
-        Title="MainWindow" Height="681.513" Width="1329.363">
+        Title="Mesa de Póker" Height="681.513" Width="1329.363">
     <Grid Background="#FF1D762A">
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="627,309,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="636,309,0,0" VerticalAlignment="Top" Width="100"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="86,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="338,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="583,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="835,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="1084,105,0,0" VerticalAlignment="Top" Width="159"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="697,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="530,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Button x:Name="buttonCall" Content="Igualar" HorizontalAlignment="Left" Height="31" Margin="1124,456,0,0" VerticalAlignment="Top" Width="166" Click="Call" />
-        <Button x:Name="buttonFold" Content="No ir" HorizontalAlignment="Left" Height="31" Margin="1124,491,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="buttonRaise" Content="Subir" HorizontalAlignment="Left" Height="30" Margin="1124,526,0,0" VerticalAlignment="Top" Width="166" Click="Raise" />
-        <Button x:Name="buttonClick" Content="Pasar" HorizontalAlignment="Left" Height="31" Margin="1124,560,0,0" VerticalAlignment="Top" Width="166"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="696,428,0,0" VerticalAlignment="Top" Width="129"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="548,428,0,0" VerticalAlignment="Top" Width="129"/>
+        <Button x:Name="buttonCall" Content="Igualar apuesta" HorizontalAlignment="Left" Height="31" Margin="1124,456,0,0" VerticalAlignment="Top" Width="166" Click="Call" />
+        <Button x:Name="buttonFold" Content="No ir esta mano" HorizontalAlignment="Left" Height="31" Margin="1124,491,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="buttonRaise" Content="Subir apuesta" HorizontalAlignment="Left" Height="30" Margin="1124,526,0,0" VerticalAlignment="Top" Width="166" Click="Raise" />
+        <Button x:Name="buttonClick" Content="Pasar / No apostar" HorizontalAlignment="Left" Height="31" Margin="1124,560,0,0" VerticalAlignment="Top" Width="166"/>
         <Image x:Name="flop1" Source="{Binding CartaFlop1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="86,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="flop2" Source="{Binding CartaFlop2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="338,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="flop3" Source="{Binding CartaFlop3, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="583,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="turn" Source="{Binding CartaTurn, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="835,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="river" Source="{Binding CartaRiver, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="1084,105,0,0" VerticalAlignment="Top" Width="159"/>
-        <Image x:Name="manoCarta1" Source="{Binding Carta1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="530,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Image x:Name="manoCarta2" Source="{Binding Carta2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="697,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Label x:Name="labelBoteTotal" Content="Bote Actual: " HorizontalAlignment="Left" Margin="90,38,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="labelBoteCant" Content="{Binding Juego.Bote, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="236,38,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
-        <DataGrid x:Name="tablaJugadores" ItemsSource="{Binding Juego.Jugadores, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Height="146" Margin="10,450,0,0" VerticalAlignment="Top" Width="487"/>
-        <Label x:Name="labelTablaJugadores" Content="Jugadores: " HorizontalAlignment="Left" Margin="10,401,0,0" VerticalAlignment="Top" Width="248" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="labelManoJugador" Content="Mano: " HorizontalAlignment="Left" Margin="635,386,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="labelApuestaMinima" Content="Apuesta Minima:" HorizontalAlignment="Left" Margin="810,38,0,0" VerticalAlignment="Top" Width="169" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="labelApuestaMinimaCant" Content="{Binding Juego.ApuestaMinima, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="995,38,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
-        <Label x:Name="labelApuestaAlta" Content="Apuesta Alta: " HorizontalAlignment="Left" Margin="436,38,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
-        <Label x:Name="labelApuestaAltaCant" Content="{Binding Juego.ApuestaAlta, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="598,38,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
+        <Image x:Name="manoCarta1" Source="{Binding Carta1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="548,428,0,0" VerticalAlignment="Top" Width="129"/>
+        <Image x:Name="manoCarta2" Source="{Binding Carta2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="696,428,0,0" VerticalAlignment="Top" Width="129"/>
+        <Label x:Name="labelBoteTotal" Content="Bote total a ganar: " HorizontalAlignment="Left" Margin="52,36,0,0" VerticalAlignment="Top" Width="232" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="labelBoteCant" Content="{Binding Juego.Bote, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="252,36,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
+        <DataGrid x:Name="tablaJugadores" ItemsSource="{Binding Juego.Jugadores, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Height="141" Margin="10,450,0,0" VerticalAlignment="Top" Width="508"/>
+        <Label x:Name="labelTablaJugadores" Content="Jugadores / Información: " HorizontalAlignment="Left" Margin="10,401,0,0" VerticalAlignment="Top" Width="248" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="labelManoJugador" Content="Mano: " HorizontalAlignment="Left" Margin="644,386,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
         <Label x:Name="labelInfoJugadorCantFichas" Content="Cant. Fichas:" HorizontalAlignment="Left" Margin="873,490,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="#FFFDF9F9"/>
         <Label x:Name="labelInfoJugadorCantFichasTotal" Content="{Binding Jugador.CantFichas, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1002,490,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
         <Label x:Name="labelInfoJugadorCantApuesta" Content="Apostando:" HorizontalAlignment="Left" Margin="873,519,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="White"/>
         <Label x:Name="labelInfoJugadorCantApuestaTotal" Content="{Binding Jugador.ApuestaActual, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1002,519,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="854,491,0,0" VerticalAlignment="Top" Width="237"/>
         <Label x:Name="labelJugadorInfo" Content="{Binding Jugador.NombreUsuario, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="854,445,0,0" VerticalAlignment="Top" Width="211" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="espada" Content="♠" HorizontalAlignment="Left" Margin="1115,36,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="Black" Height="47" Width="40"/>
+        <Label x:Name="corazon" Content="♥" HorizontalAlignment="Left" Margin="1160,36,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
+        <Label x:Name="trebol" Content="♣" HorizontalAlignment="Left" Margin="1205,36,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FF060606" Height="47" Width="40"/>
+        <Label x:Name="diamante" Content="♦" HorizontalAlignment="Left" Margin="1250,36,0,0" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold" Foreground="#FFDE2F2F" Height="47" Width="40"/>
 
     </Grid>
 </Window>

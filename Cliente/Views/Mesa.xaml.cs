@@ -1,5 +1,4 @@
-﻿using Cliente.Models;
-using Cliente.Services;
+﻿using Cliente.Services;
 using Newtonsoft.Json;
 using System;
 using System.Threading;
@@ -19,11 +18,6 @@ namespace Cliente
 
             ViewModel = new ViewModel();
             DataContext = ViewModel;
-            ViewModel.ActualizarInfoJugador();
-            ViewModel.ObtenerMano(ClienteTCP.Name());
-
-            Thread update = new Thread(Escuchar);
-            update.Start();
         }
 
         private void Call(object sender, RoutedEventArgs e)
@@ -49,6 +43,12 @@ namespace Cliente
                 ViewModel.Raise(fichas);
                 ClienteTCP.Write(JsonConvert.SerializeObject(ViewModel.Juego));
             }
+        }
+
+        public void IniciarHilo()
+        {
+            Thread update = new Thread(Escuchar);
+            update.Start();
         }
 
         private void Escuchar()
