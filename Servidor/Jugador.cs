@@ -29,10 +29,20 @@ namespace Servidor
         public int ApuestaActual { get; set; }
 
         [JsonProperty]
+        public string Estado { get; set; }
+
+        [JsonProperty]
         public string Role { get; set; }
 
         [JsonProperty]
         public bool Activo { get; set; }
+
+        [JsonProperty]
+        public int PuntajeMano;
+
+        // Tipos de estados:
+        public static string ESPERANDO = "ESPERANDO";
+        public static string JUGANDO = "JUGANDO";
 
         // Tipos de roles:
         public static string REGULAR = "REGULAR";

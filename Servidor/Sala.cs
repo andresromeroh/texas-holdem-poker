@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Servidor
 {
@@ -11,7 +7,8 @@ namespace Servidor
         public static Mesa Mesa = null;
         public static void Init()
         {
-            Mesa = new Mesa(4, 50, 100); // Mesa de 4 jugadores con apuesta minima de $100
+            // Mesa de 4 jugadores con apuesta minima de $50 y alta de $100
+            Mesa = new Mesa(4, 50, 100);
         }
     }
 }

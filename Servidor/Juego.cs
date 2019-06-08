@@ -25,11 +25,15 @@ namespace Servidor
         [JsonProperty]
         public int Bote { get; set; }
 
+        [JsonProperty]
+        public int Ronda { get; set; }
+
         public Juego()
         {
             LlenarMazo();
             CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
+            Ronda = 0;
         }
 
         void LlenarMazo()
@@ -67,17 +71,23 @@ namespace Servidor
         public void Flop()
         {
             for (int i = 0; i < 3; i++)
+            {
                 CartasComunes.Add(Mazo.Pop());
-        }
+            }
 
-        public void River()
-        {
-            CartasComunes.Add(Mazo.Pop());
+            Ronda = 2;
         }
 
         public void Turn()
         {
             CartasComunes.Add(Mazo.Pop());
+            Ronda = 3;
+        }
+
+        public void River()
+        {
+            CartasComunes.Add(Mazo.Pop());
+            Ronda = 4;
         }
 
         public void Repartir()
@@ -87,7 +97,116 @@ namespace Servidor
                 jugador.Mano[0] = Mazo.Pop();
                 jugador.Mano[1] = Mazo.Pop();
             }
+
+            Ronda = 1;
         }
 
+        public void definirApuestas() // Define los jugadores con apuestas y hace su resta
+        {
+            definirJugadorApuestaBaja();
+            definirJugadorApuestaAlta();
+        }
+
+       public void definirJugadorApuestaBaja()
+        {
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                if (Jugadores[i].Role.Equals(Jugador.APUESTA_BAJA))
+                {
+                    Jugadores[i].Role = Jugador.REGULAR;
+
+                    if (i == (Jugadores.Count - 1)) // Si es el ultimo
+                    {
+                        Jugadores[0].Role = Jugador.APUESTA_BAJA;
+                        Jugadores[0].ApuestaActual = ApuestaMinima;
+                        Jugadores[0].CantFichas -= ApuestaMinima;
+                    }
+                }
+
+                break;
+            }
+        }
+
+        public void definirJugadorApuestaAlta()
+        {
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                if (Jugadores[i].Role.Equals(Jugador.APUESTA_BAJA))
+                {  
+                    if (i == (Jugadores.Count - 1)) // Si es el ultimo
+                    {
+                        Jugadores[0].Role = Jugador.APUESTA_ALTA;
+                        Jugadores[0].ApuestaActual = ApuestaAlta;
+                        Jugadores[0].CantFichas -= ApuestaAlta;
+                    }
+                    else
+                    {
+                        Jugadores[i + 1].Role = Jugador.APUESTA_ALTA;
+                        Jugadores[0].ApuestaActual = ApuestaAlta;
+                        Jugadores[0].CantFichas -= ApuestaAlta;
+                    }
+                }
+
+                break;
+            }
+        }
+
+        public void analizarMano() {
+            foreach (Jugador jugador in Jugadores) {
+                cartaAlta(jugador);
+                par(jugador);
+                doblePar(jugador);
+                trio(jugador);
+                escalera(jugador);
+                color(jugador);
+                fullHouse(jugador);
+                poker(jugador);
+                escaleraDeColor(jugador);
+                escaleraReal(jugador);
+            }
+        }
+
+        /// Estefany
+        public void cartaAlta(Jugador jugador) {
+            jugador.PuntajeMano = 1;
+        }
+        public void par(Jugador jugador)
+        {
+            jugador.PuntajeMano = 2;
+        }
+        public void doblePar(Jugador jugador)
+        {
+            jugador.PuntajeMano = 3;
+        }
+        public void trio(Jugador jugador)
+        {
+            jugador.PuntajeMano = 4;
+        }
+        public void escalera(Jugador jugador)
+        {
+            jugador.PuntajeMano = 5;
+        }
+
+        ///Ariel
+        public void color(Jugador jugador)
+        {
+            jugador.PuntajeMano = 6;
+        }
+        public void fullHouse(Jugador jugador)
+        {
+            jugador.PuntajeMano = 7;
+        }
+        public void poker(Jugador jugador)
+        {
+            jugador.PuntajeMano = 8;
+        }
+        public void escaleraDeColor(Jugador jugador)
+        {
+            jugador.PuntajeMano = 9;
+        }
+        public void escaleraReal(Jugador jugador)
+        {
+            jugador.PuntajeMano = 10;
+        }
     }
 }
