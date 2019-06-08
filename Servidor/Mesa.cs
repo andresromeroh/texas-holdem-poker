@@ -129,13 +129,13 @@ namespace Servidor
             {
                 Juego.Repartir();
                 Inform(JsonConvert.SerializeObject(Juego));
-                RondaFlow();
+                RondaFlop();
                 RondaTurn();
                 RondaRiver();
             }
         }
 
-        public void RondaFlow()
+        public void RondaFlop()
         {
             foreach (Cliente cliente in ClientesJugador)
             {
