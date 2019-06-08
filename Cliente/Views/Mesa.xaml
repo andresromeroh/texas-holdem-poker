@@ -15,10 +15,10 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="1084,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="697,428,0,0" VerticalAlignment="Top" Width="129"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="530,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Button x:Name="buttonCall" Content="Call" HorizontalAlignment="Left" Height="31" Margin="1124,456,0,0" VerticalAlignment="Top" Width="166" Click="Call" />
-        <Button x:Name="buttonFold" Content="Fold" HorizontalAlignment="Left" Height="31" Margin="1124,491,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="buttonRaise" Content="Raise" HorizontalAlignment="Left" Height="30" Margin="1124,526,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="buttonClick" Content="Check" HorizontalAlignment="Left" Height="31" Margin="1124,560,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="buttonCall" Content="Igualar" HorizontalAlignment="Left" Height="31" Margin="1124,456,0,0" VerticalAlignment="Top" Width="166" Click="Call" />
+        <Button x:Name="buttonFold" Content="No ir" HorizontalAlignment="Left" Height="31" Margin="1124,491,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="buttonRaise" Content="Subir" HorizontalAlignment="Left" Height="30" Margin="1124,526,0,0" VerticalAlignment="Top" Width="166" Click="Raise" />
+        <Button x:Name="buttonClick" Content="Pasar" HorizontalAlignment="Left" Height="31" Margin="1124,560,0,0" VerticalAlignment="Top" Width="166"/>
         <Image x:Name="flop1" Source="{Binding CartaFlop1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="86,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="flop2" Source="{Binding CartaFlop2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="338,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="flop3" Source="{Binding CartaFlop3, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="583,105,0,0" VerticalAlignment="Top" Width="159"/>
@@ -40,7 +40,7 @@
         <Label x:Name="labelInfoJugadorCantApuesta" Content="Apostando:" HorizontalAlignment="Left" Margin="873,519,0,0" VerticalAlignment="Top" Width="176" FontSize="20" FontWeight="Bold" Foreground="White"/>
         <Label x:Name="labelInfoJugadorCantApuestaTotal" Content="{Binding Jugador.ApuestaActual, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1002,519,0,0" VerticalAlignment="Top" Width="122" FontSize="20" FontWeight="Bold" Foreground="#FFCAF507"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="854,491,0,0" VerticalAlignment="Top" Width="237"/>
-        <Label x:Name="labelJugadorInfo" Content="{Binding Jugador.NombreUsuario, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="854,445,0,0" VerticalAlignment="Top" Width="146" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="labelJugadorInfo" Content="{Binding Jugador.NombreUsuario, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="854,445,0,0" VerticalAlignment="Top" Width="211" FontSize="20" FontWeight="Bold"/>
 
     </Grid>
 </Window>

@@ -106,7 +106,6 @@ namespace Cliente
                     Juego.Bote += Jugador.ApuestaActual;
                 }
             }
-            OnPropertyChange("Jugador");
         }
 
         public void RegularCall()
@@ -116,8 +115,13 @@ namespace Cliente
             Jugador.ApuestaActual += (max - Jugador.ApuestaActual);
             Jugador.CantFichas -= (max - Jugador.ApuestaActual);
             Juego.Bote += (max - Jugador.ApuestaActual);
+        }
 
-            OnPropertyChange("Jugador");
+        public void Raise(int cantApuesta)
+        {
+            Jugador.ApuestaActual += cantApuesta;
+            Jugador.CantFichas -= cantApuesta;
+            Juego.Bote += cantApuesta;
         }
 
         public int ObtenerApuestaMax()

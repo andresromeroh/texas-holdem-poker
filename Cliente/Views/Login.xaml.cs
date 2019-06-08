@@ -15,6 +15,7 @@ namespace Cliente
         public Login()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void conectarServidor(object sender, RoutedEventArgs e)
