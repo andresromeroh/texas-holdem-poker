@@ -31,7 +31,7 @@ namespace Cliente.Services
             return (reader.ReadLine());
         }
 
-        public static bool messagePending()
+        public static bool MessagePending()
         {
             if (reader.Peek() != -1)
             {

@@ -24,11 +24,15 @@ namespace Cliente.Models
         [JsonProperty]
         public int Bote { get; set; }
 
+        [JsonProperty]
+        public int Ronda { get; set; }
+
         public Juego()
         {
             Mazo = new Stack<Carta>();
             CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
+            Ronda = 0;
         }
 
     }

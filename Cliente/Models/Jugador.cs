@@ -37,6 +37,9 @@ namespace Cliente
         [JsonProperty]
         public bool Activo { get; set; }
 
+        [JsonProperty]
+        public int PuntajeMano;
+
         // Tipos de estados:
         public static string ESPERANDO = "ESPERANDO";
         public static string JUGANDO = "JUGANDO";

@@ -2,12 +2,8 @@
 using Cliente.Services;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cliente
 {
@@ -15,6 +11,7 @@ namespace Cliente
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public Juego Juego { get; set; }
+        public Jugador Jugador { get; set; }
         public string Carta1 { get; set; }
         public string Carta2 { get; set; }
         public string CartaFlop1 { get; set; }
@@ -23,11 +20,8 @@ namespace Cliente
         public string CartaTurn { get; set; }
         public string CartaRiver { get; set; }
 
-        public int Ronda = 1;
-
         protected void OnPropertyChange(string propertyName)
         {
-            Console.WriteLine("PROPERTY CHANGED()\n");
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -36,8 +30,7 @@ namespace Cliente
 
         public ViewModel()
         {
-            Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
-            OnPropertyChange("Juego");
+            // Constructor
         }
 
         public List<Jugador> ObtenerJugadores()
@@ -45,18 +38,24 @@ namespace Cliente
             return Juego.Jugadores;
         }
 
-        public void ObtenerMano(string nombre)
+        public void ActualizarInfoJugador()
         {
             foreach (Jugador jugador in Juego.Jugadores)
             {
                 if (jugador.NombreUsuario.Equals(ClienteTCP.Name()))
                 {
-                    Carta1 = "/Resources/Images/Cards/" + jugador.Mano[0].TipoPalo + jugador.Mano[0].Leyenda + ".png";
-                    Carta2 = "/Resources/Images/Cards/" + jugador.Mano[1].TipoPalo + jugador.Mano[1].Leyenda + ".png";
-                    OnPropertyChange("Carta1");
-                    OnPropertyChange("Carta2");
+                    Jugador = jugador;
+                    OnPropertyChange("Jugador");
                 }
             }
+        }
+
+        public void ObtenerMano(string nombre)
+        {
+            Carta1 = "/Resources/Images/Cards/" + Jugador.Mano[0].TipoPalo + Jugador.Mano[0].Leyenda + ".png";
+            Carta2 = "/Resources/Images/Cards/" + Jugador.Mano[1].TipoPalo + Jugador.Mano[1].Leyenda + ".png";
+            OnPropertyChange("Carta1");
+            OnPropertyChange("Carta2");
         }
 
         public void ObtenerFlop()
@@ -81,26 +80,101 @@ namespace Cliente
             OnPropertyChange("CartaRiver");
         }
 
+        public void FlopCall()
+        {
+            if (Jugador.Role.Equals(Jugador.APUESTA_ALTA))
+            {
+                return;
+            }
+            else
+            {
+                if (Jugador.Role.Equals(Jugador.APUESTA_BAJA))
+                {
+                    Jugador.ApuestaActual += (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                    Jugador.CantFichas -= (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                    Juego.Bote += (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                }
+                else
+                {
+                    Jugador.ApuestaActual = Juego.ApuestaAlta;
+                    Jugador.CantFichas -= Jugador.ApuestaActual;
+                    Juego.Bote += Jugador.ApuestaActual;
+                }
+            }
+        }
+
+        public void RegularCall()
+        {
+            int max = ObtenerApuestaMax();
+            int diferencia = 0;
+
+            if (max == Jugador.ApuestaActual)
+            {
+                Jugador.ApuestaActual += 100;
+                Jugador.CantFichas -= 100;
+                Juego.Bote += 100;
+            }
+            else
+            {
+                if (max > Jugador.ApuestaActual)
+                {
+                    diferencia = (max - Jugador.ApuestaActual);
+                    Jugador.ApuestaActual += diferencia;
+                    Jugador.CantFichas = Jugador.CantFichas - diferencia;
+                    Juego.Bote += diferencia;
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        public void Raise(int cantApuesta)
+        {
+            Jugador.ApuestaActual += cantApuesta;
+            Jugador.CantFichas -= cantApuesta;
+            Juego.Bote += cantApuesta;
+        }
+
+        public int ObtenerApuestaMax()
+        {
+            int max = 0;
+
+            foreach (Jugador jugador in Juego.Jugadores)
+            {
+                if (jugador.ApuestaActual > max)
+                {
+                    max = jugador.ApuestaActual;
+                }
+            }
+
+            return max;
+        }
+
         public void Actualizar()
         {
+            Console.WriteLine("Actualizando juego...");
             Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
             OnPropertyChange("Juego");
 
-            switch (this.Ronda)
+            switch (Juego.Ronda)
             {
                 case 1:
-                    ObtenerFlop();
-                    Ronda++;
+                    ActualizarInfoJugador();
+                    ObtenerMano(ClienteTCP.Name());
                     break;
 
                 case 2:
-                    ObtenerTurn();
-                    Ronda++;
+                    ObtenerFlop();
                     break;
 
                 case 3:
+                    ObtenerTurn();
+                    break;
+
+                case 4:
                     ObtenerRiver();
-                    Ronda = 1;
                     break;
 
                 default:

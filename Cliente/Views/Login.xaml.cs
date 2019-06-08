@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using Cliente.Services;
@@ -15,6 +14,7 @@ namespace Cliente
         public Login()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void conectarServidor(object sender, RoutedEventArgs e)
@@ -35,17 +35,26 @@ namespace Cliente
             
             if(loginExitoso)
             {
+                //Mostrar mensaje de login exitoso
+                string caption = "Inicio de Sesión Exitoso";
+                string message = "Bienvenido a la mesa " + username + "!";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+                //Muestra el mensaje
+                System.Windows.Forms.MessageBox.Show(message, caption, buttons);
+
                 Mesa mesa = new Mesa();
                 //Abrir la pantalla de mesa
                 mesa.Show();
                 //Cerrar la pantalla de login
                 this.Close();
+                mesa.IniciarHilo(); // Escuchar por cambios en el juego
             }
             else
             {
                 //Mostrar advertencia de credenciales incorrectos
-                string message = "Username or password is incorrect, please try again.";
-                string caption = "Error Detected in Credentials";
+                string caption = "Error con los credenciales";
+                string message = "El nombre de usuario o password es incorrecto!";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
 
                 //Muestra el mensaje
