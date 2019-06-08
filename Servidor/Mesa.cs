@@ -142,7 +142,7 @@ namespace Servidor
             {
                 actualizarEstadoJugador(cliente, Jugador.JUGANDO);
                 Inform();
-                Console.WriteLine("Esperando Accion de Jugador: " + cliente.Jugador.NombreUsuario);
+                Console.WriteLine("Turno del jugador: " + Juego.Turno);
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
                 Inform();
                 actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
@@ -190,7 +190,15 @@ namespace Servidor
             {
                 if (jugador.NombreUsuario.Equals(cliente.Jugador.NombreUsuario))
                 {
-                    jugador.Estado = estado;
+                    if (estado.Equals(Jugador.JUGANDO))
+                    {
+                        jugador.Estado = estado;
+                        Juego.Turno = jugador.NumJugador;
+                    }
+                    else
+                    {
+                        jugador.Estado = estado;
+                    }
                 }
             }
         }
