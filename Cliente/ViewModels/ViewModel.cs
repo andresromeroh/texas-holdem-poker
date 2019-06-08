@@ -12,13 +12,14 @@ namespace Cliente
         public event PropertyChangedEventHandler PropertyChanged;
         public Juego Juego { get; set; }
         public Jugador Jugador { get; set; }
-        public string Carta1 { get; set; }
-        public string Carta2 { get; set; }
+        public string CartaMano1 { get; set; }
+        public string CartaMano2 { get; set; }
         public string CartaFlop1 { get; set; }
         public string CartaFlop2 { get; set; }
         public string CartaFlop3 { get; set; }
         public string CartaTurn { get; set; }
         public string CartaRiver { get; set; }
+        public bool Jugando { get; set; }
 
         protected void OnPropertyChange(string propertyName)
         {
@@ -52,10 +53,10 @@ namespace Cliente
 
         public void ObtenerMano(string nombre)
         {
-            Carta1 = "/Resources/Images/Cards/" + Jugador.Mano[0].TipoPalo + Jugador.Mano[0].Leyenda + ".png";
-            Carta2 = "/Resources/Images/Cards/" + Jugador.Mano[1].TipoPalo + Jugador.Mano[1].Leyenda + ".png";
-            OnPropertyChange("Carta1");
-            OnPropertyChange("Carta2");
+            CartaMano1 = "/Resources/Images/Cards/" + Jugador.Mano[0].TipoPalo + Jugador.Mano[0].Leyenda + ".png";
+            CartaMano2 = "/Resources/Images/Cards/" + Jugador.Mano[1].TipoPalo + Jugador.Mano[1].Leyenda + ".png";
+            OnPropertyChange("CartaMano1");
+            OnPropertyChange("CartaMano2");
         }
 
         public void ObtenerFlop()
@@ -150,6 +151,20 @@ namespace Cliente
             }
 
             return max;
+        }
+
+        public void ActualizarTurno()
+        {
+            if (Juego.Turno == Jugador.NumJugador)
+            {
+                Jugando = true;
+                OnPropertyChange("Jugando");
+            }
+            else
+            {
+                Jugando = false;
+                OnPropertyChange("Jugando");
+            }
         }
 
         public void Actualizar()
