@@ -19,17 +19,24 @@ namespace Cliente
             ViewModel.ActualizarInfoJugador();
             ViewModel.ObtenerMano(ClienteTCP.Name());
 
-            Thread update = new Thread(escuchar);
+            Thread update = new Thread(Escuchar);
             update.Start();
         }
 
-        private void call(object sender, RoutedEventArgs e)
+        private void Call(object sender, RoutedEventArgs e)
         {
-            ViewModel.Call();
+            if (ViewModel.Juego.Ronda == 0)
+            {
+                ViewModel.FlopCall();
+            }
+            else
+            {
+                ViewModel.RegularCall();
+            }
             ClienteTCP.Write(JsonConvert.SerializeObject(ViewModel.Juego));
         }
 
-        private void escuchar()
+        private void Escuchar()
         {
             Console.WriteLine("Escuchando");
             while (true)

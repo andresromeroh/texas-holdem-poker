@@ -85,11 +85,54 @@ namespace Cliente
             OnPropertyChange("CartaRiver");
         }
 
-        public void Call()
+        public void FlopCall()
         {
-            Jugador.ApuestaActual += Juego.ApuestaMinima;
-            Jugador.CantFichas -= Jugador.ApuestaActual;
-            Juego.Bote += Jugador.ApuestaActual;
+            if (Jugador.Role.Equals(Jugador.APUESTA_ALTA))
+            {
+                return;
+            }
+            else
+            {
+                if (Jugador.Role.Equals(Jugador.APUESTA_BAJA))
+                {
+                    Jugador.ApuestaActual += (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                    Jugador.CantFichas -= (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                    Juego.Bote += (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                }
+                else
+                {
+                    Jugador.ApuestaActual = Juego.ApuestaAlta;
+                    Jugador.CantFichas -= Jugador.ApuestaActual;
+                    Juego.Bote += Jugador.ApuestaActual;
+                }
+            }
+            OnPropertyChange("Jugador");
+        }
+
+        public void RegularCall()
+        {
+            int max = ObtenerApuestaMax();
+
+            Jugador.ApuestaActual += (max - Jugador.ApuestaActual);
+            Jugador.CantFichas -= (max - Jugador.ApuestaActual);
+            Juego.Bote += (max - Jugador.ApuestaActual);
+
+            OnPropertyChange("Jugador");
+        }
+
+        public int ObtenerApuestaMax()
+        {
+            int max = 0;
+
+            foreach (Jugador jugador in Juego.Jugadores)
+            {
+                if (jugador.ApuestaActual > max)
+                {
+                    max = jugador.ApuestaActual;
+                }
+            }
+
+            return max;
         }
 
         public void Actualizar()
