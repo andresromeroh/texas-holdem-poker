@@ -74,9 +74,9 @@ namespace Servidor
                     break;
             }
 
-            Inform();
+            Informar();
 
-            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
@@ -85,7 +85,7 @@ namespace Servidor
             {
                 Console.WriteLine("Esperando otro jugador, necesarios: 2\n");
                 Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+                if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
@@ -112,7 +112,7 @@ namespace Servidor
             ClientesJugador.Remove(cliente);
             Juego.Jugadores.Remove(cliente.Jugador);
 
-            Inform(); // Informar que un jugador ha sido removido
+            Informar(); // Informar que un jugador ha sido removido
 
             if (Juego != null)
             {
@@ -140,51 +140,51 @@ namespace Servidor
         {
             foreach (Cliente cliente in ClientesJugador)
             {
-                actualizarEstadoJugador(cliente, Jugador.JUGANDO);
-                Inform();
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Informar();
                 Console.WriteLine("Turno del jugador: " + Juego.Turno);
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
-                Inform();
-                actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
             }
 
             Juego.Flop(); // Una vez ya todos han jugado
-            Inform();
+            Informar();
         }
 
         public void RondaTurn()
         {
             foreach (Cliente cliente in ClientesJugador)
             {
-                actualizarEstadoJugador(cliente, Jugador.JUGANDO);
-                Inform();
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Informar();
                 Console.WriteLine("Esperando Accion de Jugador: " + cliente.Jugador.NombreUsuario);
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
-                Inform();
-                actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
             }
 
             Juego.Turn(); // Una vez ya todos han jugado
-            Inform();
+            Informar();
         }
 
         public void RondaRiver()
         {
             foreach (Cliente cliente in ClientesJugador)
             {
-                actualizarEstadoJugador(cliente, Jugador.JUGANDO);
-                Inform();
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Informar();
                 Console.WriteLine("Esperando Accion de Jugador: " + cliente.Jugador.NombreUsuario);
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
-                Inform();
-                actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
             }
 
             Juego.River(); // Una vez ya todos han jugado
-            Inform();
+            Informar();
         }
 
-        public void actualizarEstadoJugador(Cliente cliente, string estado)
+        public void ActualizarEstadoJugador(Cliente cliente, string estado)
         {
             foreach (Jugador jugador in Juego.Jugadores)
             {
@@ -203,7 +203,7 @@ namespace Servidor
             }
         }
 
-        public void Inform()
+        public void Informar()
         {
             foreach (Cliente cliente in ClientesJugador)
                 cliente.Writer.WriteLine(JsonConvert.SerializeObject(Juego));

@@ -5,7 +5,7 @@ using ADAutenticacion;
 
 namespace Servidor
 {
-    class Program
+    class Servidor
     {
         static void Main(string[] args)
         {
