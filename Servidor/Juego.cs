@@ -75,19 +75,19 @@ namespace Servidor
                 CartasComunes.Add(Mazo.Pop());
             }
 
-            Ronda = 1;
+            Ronda = 2;
         }
 
         public void Turn()
         {
             CartasComunes.Add(Mazo.Pop());
-            Ronda = 2;
+            Ronda = 3;
         }
 
         public void River()
         {
             CartasComunes.Add(Mazo.Pop());
-            Ronda = 3;
+            Ronda = 4;
         }
 
         public void Repartir()
@@ -97,6 +97,8 @@ namespace Servidor
                 jugador.Mano[0] = Mazo.Pop();
                 jugador.Mano[1] = Mazo.Pop();
             }
+
+            Ronda = 1;
         }
 
         public void definirApuestas() // Define los jugadores con apuestas y hace su resta
