@@ -26,6 +26,9 @@ namespace Servidor
         public int Bote { get; set; }
 
         [JsonProperty]
+        public int Turno { get; set; }
+
+        [JsonProperty]
         public int Ronda { get; set; }
 
         public Juego()
@@ -33,6 +36,7 @@ namespace Servidor
             LlenarMazo();
             CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
+            Turno = 0;
             Ronda = 0;
         }
 
@@ -107,7 +111,7 @@ namespace Servidor
             definirJugadorApuestaAlta();
         }
 
-       public void definirJugadorApuestaBaja()
+        public void definirJugadorApuestaBaja()
         {
             for (int i = 0; i < Jugadores.Count; i++)
             {
@@ -132,7 +136,7 @@ namespace Servidor
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 if (Jugadores[i].Role.Equals(Jugador.APUESTA_BAJA))
-                {  
+                {
                     if (i == (Jugadores.Count - 1)) // Si es el ultimo
                     {
                         Jugadores[0].Role = Jugador.APUESTA_ALTA;
@@ -151,8 +155,10 @@ namespace Servidor
             }
         }
 
-        public void analizarMano() {
-            foreach (Jugador jugador in Jugadores) {
+        public void analizarMano()
+        {
+            foreach (Jugador jugador in Jugadores)
+            {
                 cartaAlta(jugador);
                 par(jugador);
                 doblePar(jugador);
@@ -167,7 +173,8 @@ namespace Servidor
         }
 
         /// Estefany
-        public void cartaAlta(Jugador jugador) {
+        public void cartaAlta(Jugador jugador)
+        {
             jugador.PuntajeMano = 1;
         }
         public void par(Jugador jugador)
