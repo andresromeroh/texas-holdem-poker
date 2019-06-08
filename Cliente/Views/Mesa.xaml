@@ -15,17 +15,17 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="1084,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="696,428,0,0" VerticalAlignment="Top" Width="129"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="198" Margin="548,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Button x:Name="buttonCall" Content="Igualar apuesta" HorizontalAlignment="Left" Height="31" Margin="1124,456,0,0" VerticalAlignment="Top" Width="166" Click="Call" />
-        <Button x:Name="buttonFold" Content="No ir esta mano" HorizontalAlignment="Left" Height="31" Margin="1124,491,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="buttonRaise" Content="Subir apuesta" HorizontalAlignment="Left" Height="30" Margin="1124,526,0,0" VerticalAlignment="Top" Width="166" Click="Raise" />
-        <Button x:Name="buttonClick" Content="Pasar / No apostar" HorizontalAlignment="Left" Height="31" Margin="1124,560,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="buttonCall" Content="Igualar apuesta" HorizontalAlignment="Left" Height="31" Margin="1124,456,0,0" VerticalAlignment="Top" Width="166" IsEnabled="{Binding Jugando, UpdateSourceTrigger=PropertyChanged}" Click="Call"/>
+        <Button x:Name="buttonFold" Content="No ir esta mano" HorizontalAlignment="Left" Height="31" Margin="1124,491,0,0" VerticalAlignment="Top" Width="166" IsEnabled="{Binding Jugando, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button x:Name="buttonRaise" Content="Subir apuesta" HorizontalAlignment="Left" Height="30" Margin="1124,526,0,0" VerticalAlignment="Top" Width="166" IsEnabled="{Binding Jugando, UpdateSourceTrigger=PropertyChanged}" Click="Raise" />
+        <Button x:Name="buttonCheck" Content="Pasar / No apostar" HorizontalAlignment="Left" Height="31" Margin="1124,560,0,0" VerticalAlignment="Top" Width="166" IsEnabled="{Binding Jugando, UpdateSourceTrigger=PropertyChanged}"/>
         <Image x:Name="flop1" Source="{Binding CartaFlop1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="86,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="flop2" Source="{Binding CartaFlop2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="338,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="flop3" Source="{Binding CartaFlop3, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="583,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="turn" Source="{Binding CartaTurn, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="835,105,0,0" VerticalAlignment="Top" Width="159"/>
         <Image x:Name="river" Source="{Binding CartaRiver, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="241" Margin="1084,105,0,0" VerticalAlignment="Top" Width="159"/>
-        <Image x:Name="manoCarta1" Source="{Binding Carta1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="548,428,0,0" VerticalAlignment="Top" Width="129"/>
-        <Image x:Name="manoCarta2" Source="{Binding Carta2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="696,428,0,0" VerticalAlignment="Top" Width="129"/>
+        <Image x:Name="manoCarta1" Source="{Binding CartaMano1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="548,428,0,0" VerticalAlignment="Top" Width="129"/>
+        <Image x:Name="manoCarta2" Source="{Binding CartaMano2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="198" Margin="696,428,0,0" VerticalAlignment="Top" Width="129"/>
         <Label x:Name="labelBoteTotal" Content="Bote total a ganar: " HorizontalAlignment="Left" Margin="52,36,0,0" VerticalAlignment="Top" Width="232" FontSize="20" FontWeight="Bold"/>
         <Label x:Name="labelBoteCant" Content="{Binding Juego.Bote, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="252,36,0,0" VerticalAlignment="Top" Width="144" FontSize="20" FontWeight="Bold" Foreground="#FFEA0A0A"/>
         <DataGrid x:Name="tablaJugadores" ItemsSource="{Binding Juego.Jugadores, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Height="141" Margin="10,450,0,0" VerticalAlignment="Top" Width="508"/>

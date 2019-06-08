@@ -25,6 +25,9 @@ namespace Cliente.Models
         public int Bote { get; set; }
 
         [JsonProperty]
+        public int Turno { get; set; }
+
+        [JsonProperty]
         public int Ronda { get; set; }
 
         public Juego()
@@ -32,6 +35,7 @@ namespace Cliente.Models
             Mazo = new Stack<Carta>();
             CartasComunes = new List<Carta>();
             Jugadores = new List<Jugador>();
+            Turno = 0;
             Ronda = 0;
         }
 

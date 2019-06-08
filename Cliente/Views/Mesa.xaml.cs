@@ -53,11 +53,11 @@ namespace Cliente
 
         private void Escuchar()
         {
-            Console.WriteLine("Escuchando");
             while (true)
             {
                 ViewModel.Actualizar();
                 ViewModel.ActualizarInfoJugador();
+                ViewModel.ActualizarTurno();
             }
         }
 
