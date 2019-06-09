@@ -74,7 +74,8 @@ namespace Servidor
                     break;
             }
 
-            Inform();
+            Juego.ActualizarInformacion(cliente.Jugador.NombreUsuario + " se ha unido a la mesa!\n");
+            Informar();
 
             if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
             {
@@ -83,7 +84,7 @@ namespace Servidor
             }
             else
             {
-                Console.WriteLine("Esperando otro jugador, necesarios: 2\n");
+                Juego.ActualizarInformacion("Esperando por mas jugadores para iniciar...\n");
                 Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
                 if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
                 {
@@ -112,7 +113,7 @@ namespace Servidor
             ClientesJugador.Remove(cliente);
             Juego.Jugadores.Remove(cliente.Jugador);
 
-            Inform(); // Informar que un jugador ha sido removido
+            Informar(); // Informar que un jugador ha sido removido
 
             if (Juego != null)
             {
@@ -125,66 +126,103 @@ namespace Servidor
 
         public void IniciarJuego()
         {
-            Console.WriteLine("JUEGO INICIADO!\n");
+            Juego.ActualizarInformacion("EL JUEGO HA INICIADO!\n");
 
             while (true)
             {
+                Juego.ActualizarInformacion("Ha Iniciado una nueva ronda!\n");
                 Juego.Repartir();
+                Juego.ActualizarInformacion("Se han repartido las cartas!\n");
+
+                RondaPreFlop();
                 RondaFlop();
                 RondaTurn();
                 RondaRiver();
+
+                ObtenerGanadorRonda();
+                Thread.Sleep(5000);
+
+                Juego.ActualizarInformacion("Iniciando nueva ronda por favor espere...\n");
+                RestablecerMesa();
+                Informar();
+                Thread.Sleep(10000);
+
+                Juego.DefinirApuestas();
             }
+        }
+
+        public void RondaPreFlop()
+        {
+            foreach (Cliente cliente in ClientesJugador)
+            {
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Juego.ActualizarInformacion("Turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+                Informar();
+                Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+            }
+
+            Juego.SacarFlop(); // Una vez ya todos han jugado
+            Juego.ActualizarInformacion("Mostrando el Flop... \n");
+            Informar();
         }
 
         public void RondaFlop()
         {
             foreach (Cliente cliente in ClientesJugador)
             {
-                actualizarEstadoJugador(cliente, Jugador.JUGANDO);
-                Inform();
-                Console.WriteLine("Turno del jugador: " + Juego.Turno);
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Juego.ActualizarInformacion("Turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+                Informar();
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
-                Inform();
-                actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
             }
 
-            Juego.Flop(); // Una vez ya todos han jugado
-            Inform();
+            Juego.SacarTurn(); // Una vez ya todos han jugado
+            Juego.ActualizarInformacion("Mostrando el Turn... \n");
+            Informar();
         }
 
         public void RondaTurn()
         {
             foreach (Cliente cliente in ClientesJugador)
             {
-                actualizarEstadoJugador(cliente, Jugador.JUGANDO);
-                Inform();
-                Console.WriteLine("Esperando Accion de Jugador: " + cliente.Jugador.NombreUsuario);
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Juego.ActualizarInformacion("Turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+                Informar();
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
-                Inform();
-                actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
             }
 
-            Juego.Turn(); // Una vez ya todos han jugado
-            Inform();
+            Juego.SacarRiver(); // Una vez ya todos han jugado
+            Juego.ActualizarInformacion("Mostrando el River... \n");
+            Juego.ActualizarInformacion("Se procede a hacer las puestas finales... \n");
+            Informar();
         }
 
         public void RondaRiver()
         {
             foreach (Cliente cliente in ClientesJugador)
             {
-                actualizarEstadoJugador(cliente, Jugador.JUGANDO);
-                Inform();
-                Console.WriteLine("Esperando Accion de Jugador: " + cliente.Jugador.NombreUsuario);
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Juego.ActualizarInformacion("Turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+                Informar();
                 Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
-                Inform();
-                actualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
             }
 
-            Juego.River(); // Una vez ya todos han jugado
-            Inform();
+            Informar();
         }
 
-        public void actualizarEstadoJugador(Cliente cliente, string estado)
+        public void ActualizarEstadoJugador(Cliente cliente, string estado)
         {
             foreach (Jugador jugador in Juego.Jugadores)
             {
@@ -203,7 +241,39 @@ namespace Servidor
             }
         }
 
-        public void Inform()
+        public void ObtenerGanadorRonda() // Se analizan los distintos juegos
+        {
+            Juego.ActualizarInformacion("Turno final, se procede a mostrar los juegos...\n");
+
+            foreach (Jugador jugador in Juego.Jugadores)
+            {
+                Juego.ActualizarInformacion(jugador.NombreUsuario + " tiene el siguiente juego: " + jugador.Mano[0].ToString() + " y " + jugador.Mano[1].ToString() + "\n");
+            }
+
+            Juego.Jugadores[0].CantFichas += Juego.Bote;
+            Juego.Bote = 0;
+            Juego.Turno = 0;
+
+            Juego.ActualizarInformacion("El ganador de la ronda es: " + Juego.Jugadores[0].NombreUsuario + "\n");
+            Informar();
+        }
+
+        public void RestablecerMesa()
+        {
+            Juego.CartasComunes.Clear();
+            Juego.Mazo.Clear();
+            Juego.LlenarMazo();
+            Juego.Ronda = 0;
+
+            foreach (Jugador jugador in Juego.Jugadores)
+            {
+                jugador.ApuestaActual = 0;
+                jugador.Role = Jugador.REGULAR;
+                jugador.Mano = new Carta[2];
+            }
+        }
+
+        public void Informar()
         {
             foreach (Cliente cliente in ClientesJugador)
                 cliente.Writer.WriteLine(JsonConvert.SerializeObject(Juego));
