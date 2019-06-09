@@ -30,6 +30,9 @@ namespace Cliente.Models
         [JsonProperty]
         public int Ronda { get; set; }
 
+        [JsonProperty]
+        public string Informacion { get; set; }
+
         public Juego()
         {
             Mazo = new Stack<Carta>();
@@ -37,6 +40,7 @@ namespace Cliente.Models
             Jugadores = new List<Jugador>();
             Turno = 0;
             Ronda = 0;
+            Informacion = "";
         }
 
     }
