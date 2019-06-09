@@ -77,7 +77,7 @@ namespace Servidor
             Juego.ActualizarInformacion(cliente.Jugador.NombreUsuario + " se ha unido a la mesa!\n");
             Informar();
 
-            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
@@ -86,7 +86,7 @@ namespace Servidor
             {
                 Juego.ActualizarInformacion("Esperando por mas jugadores para iniciar...\n");
                 Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
+                if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
@@ -134,6 +134,7 @@ namespace Servidor
                 Juego.Repartir();
                 Juego.ActualizarInformacion("Se han repartido las cartas!\n");
 
+                RondaPreFlop();
                 RondaFlop();
                 RondaTurn();
                 RondaRiver();
@@ -150,6 +151,24 @@ namespace Servidor
             }
         }
 
+        public void RondaPreFlop()
+        {
+            foreach (Cliente cliente in ClientesJugador)
+            {
+                ActualizarEstadoJugador(cliente, Jugador.JUGANDO);
+                Juego.ActualizarInformacion("Turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+                Informar();
+                Juego = JsonConvert.DeserializeObject<Juego>(cliente.Reader.ReadLine());
+                Informar();
+                ActualizarEstadoJugador(cliente, Jugador.ESPERANDO);
+                Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
+            }
+
+            Juego.SacarFlop(); // Una vez ya todos han jugado
+            Juego.ActualizarInformacion("Mostrando el Flop... \n");
+            Informar();
+        }
+
         public void RondaFlop()
         {
             foreach (Cliente cliente in ClientesJugador)
@@ -163,8 +182,8 @@ namespace Servidor
                 Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
             }
 
-            Juego.Flop(); // Una vez ya todos han jugado
-            Juego.ActualizarInformacion("Mostrando el Flop... \n");
+            Juego.SacarTurn(); // Una vez ya todos han jugado
+            Juego.ActualizarInformacion("Mostrando el Turn... \n");
             Informar();
         }
 
@@ -181,8 +200,9 @@ namespace Servidor
                 Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
             }
 
-            Juego.Turn(); // Una vez ya todos han jugado
-            Juego.ActualizarInformacion("Mostrando el Turn... \n");
+            Juego.SacarRiver(); // Una vez ya todos han jugado
+            Juego.ActualizarInformacion("Mostrando el River... \n");
+            Juego.ActualizarInformacion("Se procede a hacer las puestas finales... \n");
             Informar();
         }
 
@@ -199,8 +219,6 @@ namespace Servidor
                 Juego.ActualizarInformacion("Ha finalizado el turno del jugador: " + cliente.Jugador.NombreUsuario + "\n");
             }
 
-            Juego.River(); // Una vez ya todos han jugado
-            Juego.ActualizarInformacion("Mostrando el River... \n");
             Informar();
         }
 

@@ -76,7 +76,7 @@ namespace Servidor
 
         }
 
-        public void Flop()
+        public void SacarFlop()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -86,13 +86,13 @@ namespace Servidor
             Ronda = 2;
         }
 
-        public void Turn()
+        public void SacarTurn()
         {
             CartasComunes.Add(Mazo.Pop());
             Ronda = 3;
         }
 
-        public void River()
+        public void SacarRiver()
         {
             CartasComunes.Add(Mazo.Pop());
             Ronda = 4;
