@@ -31,6 +31,9 @@ namespace Servidor
         [JsonProperty]
         public int Ronda { get; set; }
 
+        [JsonProperty]
+        public string Informacion { get; set; }
+
         public Juego()
         {
             LlenarMazo();
@@ -38,9 +41,10 @@ namespace Servidor
             Jugadores = new List<Jugador>();
             Turno = 0;
             Ronda = 0;
+            Informacion = "";
         }
 
-        void LlenarMazo()
+        public void LlenarMazo()
         {
             string[] leyendas = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
             List<Carta> cartas = new List<Carta>();
@@ -105,13 +109,19 @@ namespace Servidor
             Ronda = 1;
         }
 
-        public void definirApuestas() // Define los jugadores con apuestas y hace su resta
+        public void ActualizarInformacion(string mensaje)
         {
-            definirJugadorApuestaBaja();
-            definirJugadorApuestaAlta();
+            Informacion += mensaje;
+            Console.WriteLine(mensaje);
         }
 
-        public void definirJugadorApuestaBaja()
+        public void DefinirApuestas() // Define los jugadores con apuestas y hace su resta
+        {
+            DefinirJugadorApuestaBaja();
+            DefinirJugadorApuestaAlta();
+        }
+
+        public void DefinirJugadorApuestaBaja()
         {
             for (int i = 0; i < Jugadores.Count; i++)
             {
@@ -131,7 +141,7 @@ namespace Servidor
             }
         }
 
-        public void definirJugadorApuestaAlta()
+        public void DefinirJugadorApuestaAlta()
         {
             for (int i = 0; i < Jugadores.Count; i++)
             {

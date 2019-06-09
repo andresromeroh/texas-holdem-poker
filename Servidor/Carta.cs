@@ -36,7 +36,31 @@ namespace Servidor
 
         public override string ToString()
         {
-            return String.Format("Leyenda: {0}; TipoPalo: {1};", Leyenda, TipoPalo);
+            string str = "";
+
+            switch (TipoPalo)
+            {
+                case 0:
+                    str = String.Format("{0} de ESPADAS;", Leyenda);
+                    break;
+
+                case 1:
+                    str = String.Format("{0} de CORAZONES;", Leyenda);
+                    break;
+
+                case 2:
+                    str = String.Format("{0} de DIAMANTES;", Leyenda);
+                    break;
+
+                case 3:
+                    str = String.Format("{0} de TREBOLES;", Leyenda);
+                    break;
+
+                default:
+                    break;
+            }
+
+            return str;
         }
 
     }
