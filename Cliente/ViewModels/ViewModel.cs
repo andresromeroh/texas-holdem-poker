@@ -85,6 +85,7 @@ namespace Cliente
         {
             if (Jugador.Role.Equals(Jugador.APUESTA_ALTA))
             {
+                ActualizarInformacion(Jugador.NombreUsuario + " ha decidido pasar...\n");
                 return;
             }
             else
@@ -94,12 +95,14 @@ namespace Cliente
                     Jugador.ApuestaActual += (Juego.ApuestaAlta - Juego.ApuestaMinima);
                     Jugador.CantFichas -= (Juego.ApuestaAlta - Juego.ApuestaMinima);
                     Juego.Bote += (Juego.ApuestaAlta - Juego.ApuestaMinima);
+                    ActualizarInformacion(Jugador.NombreUsuario + " ha igualado la apuesta...\n");
                 }
                 else
                 {
                     Jugador.ApuestaActual = Juego.ApuestaAlta;
                     Jugador.CantFichas -= Jugador.ApuestaActual;
                     Juego.Bote += Jugador.ApuestaActual;
+                    ActualizarInformacion(Jugador.NombreUsuario + " ha igualado la apuesta...\n");
                 }
             }
         }
@@ -114,6 +117,7 @@ namespace Cliente
                 Jugador.ApuestaActual += 100;
                 Jugador.CantFichas -= 100;
                 Juego.Bote += 100;
+                ActualizarInformacion(Jugador.NombreUsuario + " ha decidido pasar...\n");
             }
             else
             {
@@ -123,6 +127,7 @@ namespace Cliente
                     Jugador.ApuestaActual += diferencia;
                     Jugador.CantFichas = Jugador.CantFichas - diferencia;
                     Juego.Bote += diferencia;
+                    ActualizarInformacion(Jugador.NombreUsuario + " ha igualado la apuesta...\n");
                 }
                 else
                 {
@@ -136,6 +141,7 @@ namespace Cliente
             Jugador.ApuestaActual += cantApuesta;
             Jugador.CantFichas -= cantApuesta;
             Juego.Bote += cantApuesta;
+            ActualizarInformacion(Jugador.NombreUsuario + " ha subido la apuesta a " + cantApuesta + "\n");
         }
 
         public int ObtenerApuestaMax()
@@ -151,6 +157,30 @@ namespace Cliente
             }
 
             return max;
+        }
+
+        public void RestablecerCartas()
+        {
+            CartaMano1 = "/Resources/Images/Cards/green_back.png";
+            CartaMano2 = "/Resources/Images/Cards/green_back.png";
+            CartaFlop1 = "/Resources/Images/Cards/red_back.png";
+            CartaFlop2 = "/Resources/Images/Cards/red_back.png";
+            CartaFlop3 = "/Resources/Images/Cards/red_back.png";
+            CartaTurn = "/Resources/Images/Cards/red_back.png";
+            CartaRiver = "/Resources/Images/Cards/red_back.png";
+            OnPropertyChange("CartaMano1");
+            OnPropertyChange("CartaMano2");
+            OnPropertyChange("CartaFlop1");
+            OnPropertyChange("CartaFlop2");
+            OnPropertyChange("CartaFlop3");
+            OnPropertyChange("CartaTurn");
+            OnPropertyChange("CartaRiver");
+        }
+
+        public void ActualizarInformacion(string mensaje)
+        {
+            Juego.Informacion += mensaje;
+            OnPropertyChange("Juego");
         }
 
         public void ActualizarTurno()
@@ -169,12 +199,15 @@ namespace Cliente
 
         public void Actualizar()
         {
-            Console.WriteLine("Actualizando juego...");
             Juego = JsonConvert.DeserializeObject<Juego>(ClienteTCP.Read());
             OnPropertyChange("Juego");
 
             switch (Juego.Ronda)
             {
+                case 0:
+                    RestablecerCartas();
+                    break;
+
                 case 1:
                     ActualizarInfoJugador();
                     ObtenerMano(ClienteTCP.Name());
