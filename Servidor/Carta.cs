@@ -27,6 +27,35 @@ namespace Servidor
         {
         }
 
+        public int getValor()
+        {
+            int result = 0;
+            try
+            {
+                result = Int32.Parse(this.Leyenda);
+                Console.WriteLine(result);
+            }
+            catch (FormatException)
+            {
+                switch (this.Leyenda)
+                {
+                    case "J":
+                        result = 11;
+                        break;
+                    case "Q":
+                        result = 12;
+                        break;
+                    case "K":
+                        result = 13;
+                        break;
+                    case "A":
+                        result = 14;
+                        break;
+                }
+            }
+            return result;
+        }
+
         // Constructor que toma argumentos:
         public Carta(string leyenda, int tipoPalo)
         {

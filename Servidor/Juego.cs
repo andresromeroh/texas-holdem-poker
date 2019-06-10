@@ -167,9 +167,9 @@ namespace Servidor
 
         public Jugador EncontrarGanador()
         {
+            cartaAlta();
             foreach (Jugador jugador in Jugadores)
             {
-                cartaAlta(jugador);
                 par(jugador);
                 doblePar(jugador);
                 trio(jugador);
@@ -199,25 +199,157 @@ namespace Servidor
         }
 
         /// Estefany
-        public void cartaAlta(Jugador jugador)
+        public int encontrarCartaMayor(Jugador jugador)
         {
-            jugador.PuntajeMano = 1;
+            int mayor = 0;
+            foreach (Carta carta in jugador.Mano)
+            {
+                int newMayor = carta.getValor();
+                if (newMayor > mayor)
+                {
+                    mayor = newMayor;
+                }
+            }
+            return mayor;
+        }
+        public void cartaAlta()
+        {
+            Jugador tieneMayor = new Jugador();
+            int Mayor = 0;
+            foreach (Jugador jugador in Jugadores)
+            {
+                int newMayor = encontrarCartaMayor(jugador);
+                if (newMayor > Mayor)
+                {
+                    tieneMayor = jugador;
+                    Mayor = newMayor;
+                }
+            }
+            tieneMayor.PuntajeMano = 1;
         }
         public void par(Jugador jugador)
         {
-            jugador.PuntajeMano = 2;
+            bool existePar = false;
+            Carta actual = new Carta();
+            int pos = 0;
+            Carta carta1 = jugador.Mano[0];
+            Carta carta2 = jugador.Mano[1];
+            foreach (Carta carta in CartasComunes) {
+                if (carta.getValor()==carta1.getValor() || carta.getValor()==carta2.getValor()) {
+                    existePar=true;
+                }
+            }
+            if (existePar)
+            {
+                jugador.PuntajeMano = 2;
+            }
         }
         public void doblePar(Jugador jugador)
         {
-            jugador.PuntajeMano = 3;
+            bool existe1par = false;
+            bool existe2par = false;
+            int pos = 0;
+            Carta carta1 = jugador.Mano[0];
+            Carta carta2 = jugador.Mano[1];
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta1.getValor())
+                {
+                    existe1par = true;
+                }
+            }
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta2.getValor())
+                {
+                    existe2par=true;
+                }
+            }
+
+            if (existe1par && existe2par)
+            {
+                jugador.PuntajeMano = 3;
+            }
         }
         public void trio(Jugador jugador)
         {
-            jugador.PuntajeMano = 4;
+            int contador = 0;
+            bool existe3del1 = false;
+            bool existe3del2 = false;
+            int pos = 0;
+            Carta carta1 = jugador.Mano[0];
+            Carta carta2 = jugador.Mano[1];
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta1.getValor())
+                {
+                    contador++;
+                }
+            }
+            
+            if (contador == 2)
+            {
+                existe3del1 = true;
+            }
+            contador = 0;
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta2.getValor())
+                {
+                    contador++;
+                }
+            }
+
+            if (contador == 2)
+            {
+                existe3del2 = true;
+            }
+
+            if (existe3del1 || existe3del2) {
+                jugador.PuntajeMano = 4;
+            }
         }
         public void escalera(Jugador jugador)
         {
-            jugador.PuntajeMano = 5;
+            //Ordenar Mano
+            Carta[] cartas = new Carta[5];
+            cartas[0] = jugador.Mano[0];
+            cartas[1] = jugador.Mano[1];
+            int pos = 2;
+            foreach (Carta carta in CartasComunes)
+            {
+                if (pos<5) {
+                    cartas[pos] = carta;
+                    pos++; }
+            }
+            for (int x = 0; x < cartas.Length; x++)
+            {
+                for (int i = 0; i < cartas.Length - x - 1; i++)
+                {
+                    if (cartas[i].getValor() < cartas[i + 1].getValor())
+                    {
+                        int tmp = cartas[i + 1].getValor();
+                        cartas[i + 1] = cartas[i];
+                        cartas[i].Leyenda = tmp.ToString();
+                    }
+                }
+            }
+            bool existeEscalera = true;
+            int cantidadCartas = 0;
+            for (int i = 1; i < cartas.Length; i++)
+            {
+                if ((cartas[i].getValor() - 1) != cartas[i - 1].getValor())
+                {
+                    existeEscalera = false;
+                }
+                if (cantidadCartas<5) {
+                    cantidadCartas++;
+                }
+            }
+            if (existeEscalera && cantidadCartas==5)
+            {
+                jugador.PuntajeMano = 5;
+            }
         }
 
         ///Ariel
