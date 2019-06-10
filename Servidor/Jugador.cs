@@ -67,5 +67,10 @@ namespace Servidor
             Mano = new Carta[2];
         }
 
+        public void sumarFichas(int fichasGanadas)
+        {
+            CantFichas += fichasGanadas;
+        }
+
     }
 }

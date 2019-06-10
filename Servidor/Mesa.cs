@@ -77,7 +77,7 @@ namespace Servidor
             Juego.ActualizarInformacion(cliente.Jugador.NombreUsuario + " se ha unido a la mesa!\n");
             Informar();
 
-            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
@@ -86,7 +86,7 @@ namespace Servidor
             {
                 Juego.ActualizarInformacion("Esperando por mas jugadores para iniciar...\n");
                 Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
+                if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
@@ -244,17 +244,26 @@ namespace Servidor
         public void ObtenerGanadorRonda() // Se analizan los distintos juegos
         {
             Juego.ActualizarInformacion("Turno final, se procede a mostrar los juegos...\n");
+            Juego.ActualizarInformacion("Cartas en la mesa: \n");
+
+            foreach (Carta carta in Juego.CartasComunes)
+            {
+                Juego.ActualizarInformacion(carta.ToString() + "; ");
+            }
 
             foreach (Jugador jugador in Juego.Jugadores)
             {
                 Juego.ActualizarInformacion(jugador.NombreUsuario + " tiene el siguiente juego: " + jugador.Mano[0].ToString() + " y " + jugador.Mano[1].ToString() + "\n");
             }
 
-            Juego.Jugadores[0].CantFichas += Juego.Bote;
+            Jugador ganador = Juego.EncontrarGanador();
+            ganador.sumarFichas(Juego.Bote);
             Juego.Bote = 0;
             Juego.Turno = 0;
 
-            Juego.ActualizarInformacion("El ganador de la ronda es: " + Juego.Jugadores[0].NombreUsuario + "\n");
+            Juego.ActualizarInformacion("El ganador de la ronda es: " + ganador.NombreUsuario + "\n");
+            JugadaGanadora(ganador.PuntajeMano);
+
             Informar();
         }
 
@@ -278,6 +287,55 @@ namespace Servidor
             foreach (Cliente cliente in ClientesJugador)
                 cliente.Writer.WriteLine(JsonConvert.SerializeObject(Juego));
         } 
+
+        public void JugadaGanadora(int puntajeMano)
+        {
+            switch (puntajeMano)
+            {
+                case 1:
+                    Juego.ActualizarInformacion("Ha ganado con carta alta!\n");
+                    break;
+
+                case 2:
+                    Juego.ActualizarInformacion("Ha ganado con un par!\n");
+                    break;
+
+                case 3:
+                    Juego.ActualizarInformacion("Ha ganado con doble par!\n");
+                    break;
+
+                case 4:
+                    Juego.ActualizarInformacion("Ha ganado con trio!\n");
+                    break;
+
+                case 5:
+                    Juego.ActualizarInformacion("Ha ganado con escalera!\n");
+                    break;
+
+                case 6:
+                    Juego.ActualizarInformacion("Ha ganado con color!\n");
+                    break;
+
+                case 7:
+                    Juego.ActualizarInformacion("Ha ganado con Full House!\n");
+                    break;
+
+                case 8:
+                    Juego.ActualizarInformacion("Ha ganado con Poker!\n");
+                    break;
+
+                case 9:
+                    Juego.ActualizarInformacion("Ha ganado con escalera de colores!\n");
+                    break;
+
+                case 10:
+                    Juego.ActualizarInformacion("Ha ganado con escalera real!\n");
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
     }
 }
