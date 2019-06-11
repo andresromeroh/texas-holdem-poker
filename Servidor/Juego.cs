@@ -137,9 +137,9 @@ namespace Servidor
                     }
                     else
                     {
-                        Jugadores[i+1].Role = Jugador.APUESTA_BAJA;
-                        Jugadores[i+1].ApuestaActual = ApuestaMinima;
-                        Jugadores[i+1].CantFichas -= ApuestaMinima;
+                        Jugadores[i + 1].Role = Jugador.APUESTA_BAJA;
+                        Jugadores[i + 1].ApuestaActual = ApuestaMinima;
+                        Jugadores[i + 1].CantFichas -= ApuestaMinima;
                     }
                 }
             }
@@ -380,7 +380,7 @@ namespace Servidor
                         contador += 1;
                     }
                 }
-                if (contador>=5)
+                if (contador >= 5)
                     jugador.PuntajeMano = 6;
             }
         }

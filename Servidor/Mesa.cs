@@ -300,7 +300,7 @@ namespace Servidor
         {
             foreach (Cliente cliente in ClientesJugador)
                 cliente.Writer.WriteLine(JsonConvert.SerializeObject(Juego));
-        } 
+        }
 
         public void JugadaGanadora(int puntajeMano)
         {

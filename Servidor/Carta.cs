@@ -27,12 +27,6 @@ namespace Servidor
         {
         }
 
-        // Constructor que toma argumentos:
-        public Carta(string leyenda, int tipoPalo)
-        {
-            Leyenda = leyenda;
-            TipoPalo = tipoPalo;
-        }
         public int getValor()
         {
             int result = 0;
@@ -61,6 +55,14 @@ namespace Servidor
             }
             return result;
         }
+
+        // Constructor que toma argumentos:
+        public Carta(string leyenda, int tipoPalo)
+        {
+            Leyenda = leyenda;
+            TipoPalo = tipoPalo;
+        }
+
         public override string ToString()
         {
             string str = "";
