@@ -77,7 +77,7 @@ namespace Servidor
             Juego.ActualizarInformacion(cliente.Jugador.NombreUsuario + " se ha unido a la mesa!\n");
             Informar();
 
-            if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
@@ -86,7 +86,7 @@ namespace Servidor
             {
                 Juego.ActualizarInformacion("Esperando por mas jugadores para iniciar...\n");
                 Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 1) // Necesarios 2 jugadores para comenzar
+                if (ClientesJugador.Count >= 2) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
@@ -127,9 +127,10 @@ namespace Servidor
         public void IniciarJuego()
         {
             Juego.ActualizarInformacion("EL JUEGO HA INICIADO!\n");
-
+            int ronda = 1;
             while (true)
             {
+                Juego.DefinirApuestas();
                 Juego.ActualizarInformacion("Ha Iniciado una nueva ronda!\n");
                 Juego.Repartir();
                 Juego.ActualizarInformacion("Se han repartido las cartas!\n");
@@ -147,7 +148,7 @@ namespace Servidor
                 Informar();
                 Thread.Sleep(10000);
 
-                Juego.DefinirApuestas();
+                ronda++;
             }
         }
 
