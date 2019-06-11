@@ -129,15 +129,19 @@ namespace Servidor
                 {
                     Jugadores[i].Role = Jugador.REGULAR;
 
-                    if (i == (Jugadores.Count - 1)) // Si es el ultimo
+                    if (i == (Jugadores.Count - 1)) // Si es el ultimo [1][2][3]
                     {
                         Jugadores[0].Role = Jugador.APUESTA_BAJA;
                         Jugadores[0].ApuestaActual = ApuestaMinima;
                         Jugadores[0].CantFichas -= ApuestaMinima;
                     }
+                    else
+                    {
+                        Jugadores[i + 1].Role = Jugador.APUESTA_BAJA;
+                        Jugadores[i + 1].ApuestaActual = ApuestaMinima;
+                        Jugadores[i + 1].CantFichas -= ApuestaMinima;
+                    }
                 }
-
-                break;
             }
         }
 
@@ -147,7 +151,7 @@ namespace Servidor
             {
                 if (Jugadores[i].Role.Equals(Jugador.APUESTA_BAJA))
                 {
-                    if (i == (Jugadores.Count - 1)) // Si es el ultimo
+                    if (i == (Jugadores.Count - 1)) // Si es el ultimo [1][2][3]
                     {
                         Jugadores[0].Role = Jugador.APUESTA_ALTA;
                         Jugadores[0].ApuestaActual = ApuestaAlta;
@@ -156,74 +160,429 @@ namespace Servidor
                     else
                     {
                         Jugadores[i + 1].Role = Jugador.APUESTA_ALTA;
-                        Jugadores[0].ApuestaActual = ApuestaAlta;
-                        Jugadores[0].CantFichas -= ApuestaAlta;
+                        Jugadores[i + 1].ApuestaActual = ApuestaAlta;
+                        Jugadores[i + 1].CantFichas -= ApuestaAlta;
                     }
                 }
-
-                break;
             }
         }
 
-        public void analizarMano()
+        public Jugador EncontrarGanador()
         {
+            cartaAlta();
             foreach (Jugador jugador in Jugadores)
             {
-                cartaAlta(jugador);
-                par(jugador);
-                doblePar(jugador);
-                trio(jugador);
-                escalera(jugador);
-                color(jugador);
-                fullHouse(jugador);
-                poker(jugador);
-                escaleraDeColor(jugador);
-                escaleraReal(jugador);
+                if (jugador.Activo)
+                {
+                    par(jugador);
+                    doblePar(jugador);
+                    trio(jugador);
+                    escalera(jugador);
+
+                    color(jugador);
+                    // fullHouse(jugador);
+                    // poker(jugador);
+                    escaleraDeColor(jugador);
+                    escaleraReal(jugador);
+                }
             }
+
+            int ganador = 0;
+            int puntajeMayor = 0;
+
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                if (Jugadores[i].PuntajeMano > puntajeMayor)
+                {
+                    puntajeMayor = Jugadores[i].PuntajeMano;
+                    ganador = i;
+                }
+            }
+
+            return Jugadores[ganador];
         }
 
         /// Estefany
-        public void cartaAlta(Jugador jugador)
+        public int encontrarCartaMayor(Jugador jugador)
         {
-            jugador.PuntajeMano = 1;
+            int mayor = 0;
+            foreach (Carta carta in jugador.Mano)
+            {
+                int newMayor = carta.getValor();
+                if (newMayor > mayor)
+                {
+                    mayor = newMayor;
+                }
+            }
+            return mayor;
+        }
+        public void cartaAlta()
+        {
+            Jugador tieneMayor = new Jugador();
+            int Mayor = 0;
+            foreach (Jugador jugador in Jugadores)
+            {
+                if (jugador.Activo)
+                {
+                    int newMayor = encontrarCartaMayor(jugador);
+                    if (newMayor > Mayor)
+                    {
+                        tieneMayor = jugador;
+                        Mayor = newMayor;
+                    }
+                }
+            }
+            tieneMayor.PuntajeMano = 1;
         }
         public void par(Jugador jugador)
         {
-            jugador.PuntajeMano = 2;
+            bool existePar = false;
+            Carta actual = new Carta();
+            int pos = 0;
+            Carta carta1 = jugador.Mano[0];
+            Carta carta2 = jugador.Mano[1];
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta1.getValor() || carta.getValor() == carta2.getValor())
+                {
+                    existePar = true;
+                }
+            }
+            if (existePar)
+            {
+                jugador.PuntajeMano = 2;
+            }
         }
         public void doblePar(Jugador jugador)
         {
-            jugador.PuntajeMano = 3;
+            bool existe1par = false;
+            bool existe2par = false;
+            int pos = 0;
+            Carta carta1 = jugador.Mano[0];
+            Carta carta2 = jugador.Mano[1];
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta1.getValor())
+                {
+                    existe1par = true;
+                }
+            }
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta2.getValor())
+                {
+                    existe2par = true;
+                }
+            }
+
+            if (existe1par && existe2par)
+            {
+                jugador.PuntajeMano = 3;
+            }
         }
         public void trio(Jugador jugador)
         {
-            jugador.PuntajeMano = 4;
+            int contador = 0;
+            bool existe3del1 = false;
+            bool existe3del2 = false;
+            int pos = 0;
+            Carta carta1 = jugador.Mano[0];
+            Carta carta2 = jugador.Mano[1];
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta1.getValor())
+                {
+                    contador++;
+                }
+            }
+
+            if (contador == 2)
+            {
+                existe3del1 = true;
+            }
+            contador = 0;
+            foreach (Carta carta in CartasComunes)
+            {
+                if (carta.getValor() == carta2.getValor())
+                {
+                    contador++;
+                }
+            }
+
+            if (contador == 2)
+            {
+                existe3del2 = true;
+            }
+
+            if (existe3del1 || existe3del2)
+            {
+                jugador.PuntajeMano = 4;
+            }
         }
         public void escalera(Jugador jugador)
         {
-            jugador.PuntajeMano = 5;
+            //Ordenar Mano
+            Carta[] cartas = new Carta[5];
+            cartas[0] = jugador.Mano[0];
+            cartas[1] = jugador.Mano[1];
+            int pos = 2;
+            foreach (Carta carta in CartasComunes)
+            {
+                if (pos < 5)
+                {
+                    cartas[pos] = carta;
+                    pos++;
+                }
+            }
+            for (int x = 0; x < cartas.Length; x++)
+            {
+                for (int i = 0; i < cartas.Length - x - 1; i++)
+                {
+                    if (cartas[i].getValor() < cartas[i + 1].getValor())
+                    {
+                        int tmp = cartas[i + 1].getValor();
+                        cartas[i + 1] = cartas[i];
+                        cartas[i].Leyenda = tmp.ToString();
+                    }
+                }
+            }
+            bool existeEscalera = true;
+            int cantidadCartas = 0;
+            for (int i = 1; i < cartas.Length; i++)
+            {
+                if ((cartas[i].getValor() - 1) != cartas[i - 1].getValor())
+                {
+                    existeEscalera = false;
+                }
+                if (cantidadCartas < 5)
+                {
+                    cantidadCartas++;
+                }
+            }
+            if (existeEscalera && cantidadCartas == 5)
+            {
+                jugador.PuntajeMano = 5;
+            }
         }
+
 
         ///Ariel
         public void color(Jugador jugador)
         {
-            jugador.PuntajeMano = 6;
+            if (jugador.Mano[0].TipoPalo == jugador.Mano[1].TipoPalo)
+            {
+                int tipopalomano = jugador.Mano[0].TipoPalo;
+                int contador = 2;
+                foreach (Carta c in CartasComunes)
+                {
+                    if (c.TipoPalo == tipopalomano)
+                    {
+                        contador += 1;
+                    }
+                }
+                if (contador >= 5)
+                    jugador.PuntajeMano = 6;
+            }
         }
         public void fullHouse(Jugador jugador)
         {
-            jugador.PuntajeMano = 7;
+            int contador1 = 0;
+            string valor1 = jugador.Mano[0].Leyenda;
+            int contador2 = 0;
+            string valor2 = jugador.Mano[1].Leyenda;
+
+            if (valor1.Equals(valor2))
+            {
+                contador1 = 2;
+                foreach (Carta c in CartasComunes)
+                {
+                    if (c.Leyenda.Equals(valor1))
+                    {
+                        contador1 = 1;
+                        break;
+                    }
+                    else
+                    {
+                        valor2 = c.Leyenda;
+                    }
+                }
+                if (contador1 > 2)
+                {
+                    foreach (Carta c in CartasComunes)
+                    {
+                        if (!c.Leyenda.Equals(valor1))
+                        {
+                            valor2 = c.Leyenda;
+                            contador2 = 0;
+                            foreach (Carta k in CartasComunes)
+                            {
+                                if (k.Leyenda.Equals(valor2))
+                                {
+                                    contador2 += 1;
+                                }
+                            }
+                            if (contador2 >= 2)
+                                jugador.PuntajeMano = 7;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Carta c in CartasComunes)
+                    {
+                        if (!c.Leyenda.Equals(valor1))
+                        {
+                            valor2 = c.Leyenda;
+                            contador2 = 0;
+                            foreach (Carta k in CartasComunes)
+                            {
+                                if (k.Leyenda.Equals(valor2))
+                                {
+                                    contador2 += 1;
+                                }
+                            }
+                            if (contador2 >= 3)
+                                jugador.PuntajeMano = 7;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                contador1 = 1;
+                contador2 = 2;
+                foreach (Carta c in CartasComunes)
+                {
+                    if (c.Leyenda == valor1)
+                    {
+                        contador1 += 1;
+                    }
+                    else if (c.Leyenda == valor2)
+                    {
+                        contador2 += 1;
+                    }
+                }
+            }
+            if (contador1 == 2 && contador2 == 3 || contador1 == 3 && contador2 == 2)
+                jugador.PuntajeMano = 7;
         }
+
         public void poker(Jugador jugador)
         {
-            jugador.PuntajeMano = 8;
+            int contador1 = 0;
+            string valor1 = jugador.Mano[0].Leyenda;
+            string valor2 = jugador.Mano[1].Leyenda;
+            int contador2 = 0;
+
+            if (valor1.Equals(valor2))
+            {
+                contador1 = 2;
+                foreach (Carta c in CartasComunes)
+                {
+                    if (c.Leyenda.Equals(valor1))
+                    {
+                        contador1 += 1;
+                    }
+                }
+            }
+            else
+            {
+                contador1 = 1;
+                contador2 = 1;
+                foreach (Carta c in CartasComunes)
+                {
+                    if (c.Leyenda.Equals(valor1))
+                    {
+                        contador1 += 1;
+                    }
+                    else if (c.Leyenda.Equals(valor2))
+                    {
+                        contador2 += 1;
+                    }
+                }
+            }
+            if (contador1 == 4 || contador2 == 4)
+                jugador.PuntajeMano = 8;
         }
+
         public void escaleraDeColor(Jugador jugador)
         {
-            jugador.PuntajeMano = 9;
+            int contador = 0;
+            string[] leyendas = new string[] { "9", "10", "J", "Q", "K" };
+            if (!jugador.Mano[0].Leyenda.Equals(jugador.Mano[1].Leyenda) && jugador.Mano[0].TipoPalo == jugador.Mano[1].TipoPalo)
+            {
+                for (int i = 0; i < leyendas.Length; i++)
+                {
+                    if (jugador.Mano[0].Leyenda.Equals(leyendas[i]))
+                    {
+                        contador += 1;
+                        leyendas[i] = "";
+                    }
+                    else if (jugador.Mano[1].Leyenda.Equals(leyendas[i]))
+                    {
+                        contador += 1;
+                        leyendas[i] = "";
+                    }
+                }
+                if (contador >= 2)
+                {
+                    foreach (Carta c in CartasComunes)
+                    {
+                        if (c.TipoPalo == jugador.Mano[0].TipoPalo)
+                            for (int i = 0; i < leyendas.Length; i++)
+                            {
+                                if (c.Leyenda.Equals(leyendas[i]))
+                                {
+                                    contador += 1;
+                                    leyendas[i] = "";
+                                }
+                            }
+                    }
+                }
+            }
+            if (contador >= 5)
+                jugador.PuntajeMano = 9;
         }
         public void escaleraReal(Jugador jugador)
         {
-            jugador.PuntajeMano = 10;
+            int contador = 0;
+            string[] leyendas = new string[] { "A", "10", "J", "Q", "K" };
+            if (!jugador.Mano[0].Leyenda.Equals(jugador.Mano[1].Leyenda) && jugador.Mano[0].TipoPalo == jugador.Mano[1].TipoPalo)
+            {
+                for (int i = 0; i < leyendas.Length; i++)
+                {
+                    if (jugador.Mano[0].Leyenda.Equals(leyendas[i]))
+                    {
+                        contador += 1;
+                        leyendas[i] = "";
+                    }
+                    else if (jugador.Mano[1].Leyenda.Equals(leyendas[i]))
+                    {
+                        contador += 1;
+                        leyendas[i] = "";
+                    }
+                }
+                if (contador >= 2)
+                {
+                    foreach (Carta c in CartasComunes)
+                    {
+                        if (c.TipoPalo == jugador.Mano[0].TipoPalo)
+                            for (int i = 0; i < leyendas.Length; i++)
+                            {
+                                if (c.Leyenda.Equals(leyendas[i]))
+                                {
+                                    contador += 1;
+                                    leyendas[i] = "";
+                                }
+                            }
+                    }
+                }
+            }
+            if (contador >= 5)
+                jugador.PuntajeMano = 10;
         }
     }
 }
