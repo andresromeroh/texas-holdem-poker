@@ -45,6 +45,12 @@ namespace Cliente
             }
         }
 
+        private void Fold(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Fold();
+            ClienteTCP.Write(JsonConvert.SerializeObject(ViewModel.Juego));
+        }
+
         public void IniciarHilo()
         {
             Thread update = new Thread(Escuchar);

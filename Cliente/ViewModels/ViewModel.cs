@@ -53,10 +53,13 @@ namespace Cliente
 
         public void ObtenerMano(string nombre)
         {
-            CartaMano1 = "/Resources/Images/Cards/" + Jugador.Mano[0].TipoPalo + Jugador.Mano[0].Leyenda + ".png";
-            CartaMano2 = "/Resources/Images/Cards/" + Jugador.Mano[1].TipoPalo + Jugador.Mano[1].Leyenda + ".png";
-            OnPropertyChange("CartaMano1");
-            OnPropertyChange("CartaMano2");
+            if (Jugador.Activo)
+            {
+                CartaMano1 = "/Resources/Images/Cards/" + Jugador.Mano[0].TipoPalo + Jugador.Mano[0].Leyenda + ".png";
+                CartaMano2 = "/Resources/Images/Cards/" + Jugador.Mano[1].TipoPalo + Jugador.Mano[1].Leyenda + ".png";
+                OnPropertyChange("CartaMano1");
+                OnPropertyChange("CartaMano2");
+            }
         }
 
         public void ObtenerFlop()
@@ -142,6 +145,18 @@ namespace Cliente
             Jugador.CantFichas -= cantApuesta;
             Juego.Bote += cantApuesta;
             ActualizarInformacion(Jugador.NombreUsuario + " ha subido la apuesta a " + cantApuesta + "\n");
+        }
+
+        public void Fold()
+        {
+            Jugador.Activo = false;
+            Jugador.Mano[0] = null;
+            Jugador.Mano[1] = null;
+            CartaMano1 = "/Resources/Images/Cards/green_back.png";
+            CartaMano2 = "/Resources/Images/Cards/green_back.png";
+            OnPropertyChange("CartaMano1");
+            OnPropertyChange("CartaMano2");
+            ActualizarInformacion(Jugador.NombreUsuario + " ha decidido no ir!\n");
         }
 
         public int ObtenerApuestaMax()
