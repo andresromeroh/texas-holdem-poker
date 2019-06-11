@@ -147,11 +147,13 @@ namespace Cliente
             Juego.Bote += cantApuesta;
             ActualizarInformacion(Jugador.NombreUsuario + " ha subido la apuesta a " + cantApuesta + "\n");
         }
-        public void check() {
+        public bool check() {
+            bool respuesta=false;
             if (Jugador.Role == Jugador.APUESTA_ALTA)
             {
                 Jugador.ApuestaActual = 0;
-                ActualizarInformacion(Jugador.NombreUsuario + "a decidido no apostar\n");
+                ActualizarInformacion(Jugador.NombreUsuario + " ha decidido no apostar\n");
+                respuesta= true;
             }
             else {
                 string caption = "Apueste!";
@@ -160,7 +162,9 @@ namespace Cliente
 
                 //Muestra el mensaje
                 System.Windows.Forms.MessageBox.Show(message, caption, buttons);
+                respuesta = false;
             }
+            return respuesta;
         }
 
         public void Fold()
