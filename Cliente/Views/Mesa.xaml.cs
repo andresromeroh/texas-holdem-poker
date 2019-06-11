@@ -32,7 +32,8 @@ namespace Cliente
             }
             ClienteTCP.Write(JsonConvert.SerializeObject(ViewModel.Juego));
         }
-
+        private void Check(object sender , RoutedEventArgs e) {
+        }
         private void Raise(object sender, RoutedEventArgs e)
         {
             string fichasStr = Interaction.InputBox("Indique la cantidad de fichas a apostar:", "Subir Apuesta", "100");
