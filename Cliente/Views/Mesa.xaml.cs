@@ -33,6 +33,8 @@ namespace Cliente
             ClienteTCP.Write(JsonConvert.SerializeObject(ViewModel.Juego));
         }
         private void Check(object sender , RoutedEventArgs e) {
+            ViewModel.check();
+            ClienteTCP.Write(JsonConvert.SerializeObject(ViewModel.Juego));
         }
         private void Raise(object sender, RoutedEventArgs e)
         {
