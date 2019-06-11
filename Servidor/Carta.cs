@@ -33,7 +33,6 @@ namespace Servidor
             try
             {
                 result = Int32.Parse(this.Leyenda);
-                Console.WriteLine(result);
             }
             catch (FormatException)
             {

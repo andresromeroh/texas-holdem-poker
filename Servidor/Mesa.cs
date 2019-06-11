@@ -77,7 +77,7 @@ namespace Servidor
             Juego.ActualizarInformacion(cliente.Jugador.NombreUsuario + " se ha unido a la mesa!\n");
             Informar();
 
-            if (ClientesJugador.Count >= 4) // Necesarios 2 jugadores para comenzar
+            if (ClientesJugador.Count >= 3) // Necesarios 2 jugadores para comenzar
             {
                 ThreadJuego = new Thread(IniciarJuego);
                 ThreadJuego.Start();
@@ -86,7 +86,7 @@ namespace Servidor
             {
                 Juego.ActualizarInformacion("Esperando por mas jugadores para iniciar...\n");
                 Thread.Sleep(80000); // Esperar 1 minutos a que se una otro jugador
-                if (ClientesJugador.Count >= 4) // Necesarios 2 jugadores para comenzar
+                if (ClientesJugador.Count >= 3) // Necesarios 2 jugadores para comenzar
                 {
                     if (Juego == null)
                     {
@@ -141,15 +141,13 @@ namespace Servidor
                 RondaRiver();
 
                 ObtenerGanadorRonda();
-                Thread.Sleep(10000);
+                Thread.Sleep(8000);
 
                 Juego.ActualizarInformacion("Iniciando nueva ronda por favor espere...\n");
                 RestablecerMesa();
                 Juego.DefinirApuestas();
                 Informar();
-                Thread.Sleep(8000);
-
-                ronda++;
+                Thread.Sleep(6000);
             }
         }
 
