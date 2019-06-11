@@ -118,9 +118,8 @@ namespace Servidor
         public void DefinirApuestas() // Define los jugadores con apuestas y hace su resta
         {
             DefinirJugadorApuestaBaja();
-            DefinirJugadorApuestaAlta();
         }
-
+      
         public void DefinirJugadorApuestaBaja()
         {
             for (int i = 0; i < Jugadores.Count; i++)
@@ -134,12 +133,23 @@ namespace Servidor
                         Jugadores[0].Role = Jugador.APUESTA_BAJA;
                         Jugadores[0].ApuestaActual = ApuestaMinima;
                         Jugadores[0].CantFichas -= ApuestaMinima;
+
+                        Jugadores[1].Role = Jugador.APUESTA_ALTA;
+                        Jugadores[1].ApuestaActual = ApuestaAlta;
+                        Jugadores[1].CantFichas -= ApuestaAlta;
                     }
                     else
                     {
                         Jugadores[i + 1].Role = Jugador.APUESTA_BAJA;
                         Jugadores[i + 1].ApuestaActual = ApuestaMinima;
                         Jugadores[i + 1].CantFichas -= ApuestaMinima;
+
+                        if (i + 1 == (Jugadores.Count - 1)) {
+                        Jugadores[1].Role = Jugador.APUESTA_ALTA;
+                            Jugadores[0].Role = Jugador.APUESTA_ALTA;
+                            Jugadores[0].ApuestaActual = ApuestaAlta;
+                            Jugadores[0].CantFichas -= ApuestaAlta;
+                        }
                     }
                 }
             }
@@ -180,7 +190,7 @@ namespace Servidor
                     escalera(jugador);
 
                     color(jugador);
-                    // fullHouse(jugador);
+                    fullHouse(jugador);
                     // poker(jugador);
                     escaleraDeColor(jugador);
                     escaleraReal(jugador);
@@ -239,13 +249,33 @@ namespace Servidor
             bool existePar = false;
             Carta actual = new Carta();
             int pos = 0;
+            int mayor = 0;
             Carta carta1 = jugador.Mano[0];
             Carta carta2 = jugador.Mano[1];
             foreach (Carta carta in CartasComunes)
             {
+                if (carta1.getValor()==carta2.getValor()) {
+                    if (carta1.getValor() > mayor)
+                    {
+                        existePar = true;
+                        mayor = carta.getValor();
+                    }
+                    else {
+                        existePar = false;
+                    }
+                    
+                }
                 if (carta.getValor() == carta1.getValor() || carta.getValor() == carta2.getValor())
                 {
-                    existePar = true;
+                    if (carta.getValor() > mayor)
+                    {
+                        mayor = carta.getValor();
+                        existePar = true;
+                    }
+                    else
+                    {
+                        existePar = false;
+                    }
                 }
             }
             if (existePar)
@@ -285,36 +315,50 @@ namespace Servidor
             int contador = 0;
             bool existe3del1 = false;
             bool existe3del2 = false;
+            bool especial = false;
             int pos = 0;
             Carta carta1 = jugador.Mano[0];
             Carta carta2 = jugador.Mano[1];
-            foreach (Carta carta in CartasComunes)
+            if (carta1.getValor() == carta2.getValor())
             {
-                if (carta.getValor() == carta1.getValor())
+                foreach (Carta carta in CartasComunes)
                 {
-                    contador++;
+                    if (carta.getValor() == carta1.getValor())
+                    {
+                        contador++;
+                        especial = true;
+                    }
                 }
             }
-
-            if (contador == 2)
+            else
             {
-                existe3del1 = true;
-            }
-            contador = 0;
-            foreach (Carta carta in CartasComunes)
-            {
-                if (carta.getValor() == carta2.getValor())
+                foreach (Carta carta in CartasComunes)
                 {
-                    contador++;
+                    if (carta.getValor() == carta1.getValor())
+                    {
+                        contador++;
+                    }
+                }
+
+                if (contador == 2)
+                {
+                    existe3del1 = true;
+                }
+                contador = 0;
+                foreach (Carta carta in CartasComunes)
+                {
+                    if (carta.getValor() == carta2.getValor())
+                    {
+                        contador++;
+                    }
+                }
+
+                if (contador == 2)
+                {
+                    existe3del2 = true;
                 }
             }
-
-            if (contador == 2)
-            {
-                existe3del2 = true;
-            }
-
-            if (existe3del1 || existe3del2)
+            if (especial ||existe3del1 || existe3del2)
             {
                 jugador.PuntajeMano = 4;
             }
@@ -386,89 +430,87 @@ namespace Servidor
         }
         public void fullHouse(Jugador jugador)
         {
-            int contador1 = 0;
-            string valor1 = jugador.Mano[0].Leyenda;
-            int contador2 = 0;
-            string valor2 = jugador.Mano[1].Leyenda;
-
-            if (valor1.Equals(valor2))
+            if (jugador.PuntajeMano == 4)
             {
-                contador1 = 2;
-                foreach (Carta c in CartasComunes)
+                int contador1 = 0;
+                int contador2 = 0;
+
+                if (jugador.Mano[0].Leyenda.Equals(jugador.Mano[1].Leyenda))
                 {
-                    if (c.Leyenda.Equals(valor1))
+                    contador1 = 2;
+                    foreach (Carta c in CartasComunes)
                     {
-                        contador1 = 1;
-                        break;
+                        if (c.Leyenda.Equals(jugador.Mano[0].Leyenda))
+                        {
+                            contador1 = 1;
+                            break;
+                        }
+
+                    }
+                    if (contador1 > 2)
+                    {
+                        foreach (Carta c in CartasComunes)
+                        {
+                            if (!c.Leyenda.Equals(jugador.Mano[0].Leyenda))
+                            {
+                                contador2 = 0;
+                                foreach (Carta k in CartasComunes)
+                                {
+                                    if (k.Leyenda.Equals(c.Leyenda))
+                                    {
+                                        contador2 += 1;
+                                    }
+                                }
+                                if (contador2 >= 2 && contador1 >= 3)
+                                    jugador.PuntajeMano = 7;
+                                break;
+                            }
+                        }
                     }
                     else
                     {
-                        valor2 = c.Leyenda;
-                    }
-                }
-                if (contador1 > 2)
-                {
-                    foreach (Carta c in CartasComunes)
-                    {
-                        if (!c.Leyenda.Equals(valor1))
+                        foreach (Carta c in CartasComunes)
                         {
-                            valor2 = c.Leyenda;
-                            contador2 = 0;
-                            foreach (Carta k in CartasComunes)
+                            if (!c.Leyenda.Equals(jugador.Mano[0].Leyenda))
                             {
-                                if (k.Leyenda.Equals(valor2))
+                                contador2 = 0;
+                                foreach (Carta k in CartasComunes)
                                 {
-                                    contador2 += 1;
+                                    if (k.Leyenda.Equals(c.Leyenda))
+                                    {
+                                        contador2 += 1;
+                                    }
                                 }
+                                if (contador2 >= 3 && contador1 >= 2)
+                                    jugador.PuntajeMano = 7;
+                                break;
                             }
-                            if (contador2 >= 2)
-                                jugador.PuntajeMano = 7;
-                            break;
                         }
+
                     }
                 }
                 else
                 {
+                    contador1 = 1;
+                    contador2 = 2;
                     foreach (Carta c in CartasComunes)
                     {
-                        if (!c.Leyenda.Equals(valor1))
+                        if (c.Leyenda.Equals(jugador.Mano[0].Leyenda))
                         {
-                            valor2 = c.Leyenda;
-                            contador2 = 0;
-                            foreach (Carta k in CartasComunes)
-                            {
-                                if (k.Leyenda.Equals(valor2))
-                                {
-                                    contador2 += 1;
-                                }
-                            }
-                            if (contador2 >= 3)
-                                jugador.PuntajeMano = 7;
-                            break;
+                            contador1 += 1;
+                        }
+                        else if (c.Leyenda.Equals(jugador.Mano[1].Leyenda))
+                        {
+                            contador2 += 1;
                         }
                     }
+                    if (contador1 >= 2 && contador2 >= 3 || contador1 >= 3 && contador2 >= 2)
+                        jugador.PuntajeMano = 7;
+                }
+            }
 
-                }
-            }
-            else
-            {
-                contador1 = 1;
-                contador2 = 2;
-                foreach (Carta c in CartasComunes)
-                {
-                    if (c.Leyenda == valor1)
-                    {
-                        contador1 += 1;
-                    }
-                    else if (c.Leyenda == valor2)
-                    {
-                        contador2 += 1;
-                    }
-                }
-            }
-            if (contador1 == 2 && contador2 == 3 || contador1 == 3 && contador2 == 2)
-                jugador.PuntajeMano = 7;
         }
+
 
         public void poker(Jugador jugador)
         {
