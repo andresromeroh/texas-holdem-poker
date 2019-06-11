@@ -381,22 +381,58 @@ namespace Servidor
                 contador1 = 2;
                 foreach (Carta c in CartasComunes)
                 {
-                    if (c.Leyenda != valor1)
+                    if (c.Leyenda.Equals(valor1))
                     {
-                        valor2 = c.Leyenda;
+                        contador1 = 1;
                         break;
                     }
+                    else
+                    {
+                        valor2 = c.Leyenda;
+                    }
                 }
-                foreach (Carta c in CartasComunes)
+                if(contador1 > 2)
                 {
-                    if (c.Leyenda == valor1)
+                    foreach (Carta c in CartasComunes)
                     {
-                        contador1 += 1;
+                        if (!c.Leyenda.Equals(valor1))
+                        {
+                            valor2 = c.Leyenda;
+                            contador2 = 0;
+                            foreach (Carta k in CartasComunes)
+                            {
+                                if (k.Leyenda.Equals(valor2))
+                                {
+                                    contador2 += 1;
+                                }
+                            }
+                            if (contador2 >= 2)
+                                jugador.PuntajeMano = 7;
+                            break;
+                        }
                     }
-                    else if (c.Leyenda == valor2)
+                }
+                else
+                {
+                    foreach (Carta c in CartasComunes)
                     {
-                        contador2 += 1;
+                        if (!c.Leyenda.Equals(valor1))
+                        {
+                            valor2 = c.Leyenda;
+                            contador2 = 0;
+                            foreach (Carta k in CartasComunes)
+                            {
+                                if (k.Leyenda.Equals(valor2))
+                                {
+                                    contador2 += 1;
+                                }
+                            }
+                            if (contador2 >= 3)
+                                jugador.PuntajeMano = 7;
+                            break;
+                        }
                     }
+
                 }
             }
             else
@@ -427,10 +463,10 @@ namespace Servidor
 
             if (valor1.Equals(valor2))
             {
+                contador1 = 2;
                 foreach (Carta c in CartasComunes)
                 {
-                    contador1 = 2;
-                    if (c.Leyenda == valor1)
+                    if (c.Leyenda.Equals(valor1))
                     {
                         contador1 += 1;
                     }
@@ -442,11 +478,11 @@ namespace Servidor
                 contador2 = 1;
                 foreach (Carta c in CartasComunes)
                 {
-                    if (c.Leyenda == valor1)
+                    if (c.Leyenda.Equals(valor1))
                     {
                         contador1 += 1;
                     }
-                    else if (c.Leyenda == valor2)
+                    else if (c.Leyenda.Equals(valor2))
                     {
                         contador2 += 1;
                     }
