@@ -4,7 +4,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.Windows;
+using System.Windows.Forms;
 namespace Cliente
 {
     class ViewModel : INotifyPropertyChanged
@@ -145,6 +146,25 @@ namespace Cliente
             Jugador.CantFichas -= cantApuesta;
             Juego.Bote += cantApuesta;
             ActualizarInformacion(Jugador.NombreUsuario + " ha subido la apuesta a " + cantApuesta + "\n");
+        }
+        public bool check() {
+            bool respuesta=false;
+            if (Jugador.Role == Jugador.APUESTA_ALTA)
+            {
+                Jugador.ApuestaActual = 0;
+                ActualizarInformacion(Jugador.NombreUsuario + " ha decidido no apostar\n");
+                respuesta= true;
+            }
+            else {
+                string caption = "Apueste!";
+                string message = Jugador.NombreUsuario +" usted no tiene la apuesta alta , apueste o retirese!";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+                //Muestra el mensaje
+                System.Windows.Forms.MessageBox.Show(message, caption, buttons);
+                respuesta = false;
+            }
+            return respuesta;
         }
 
         public void Fold()
